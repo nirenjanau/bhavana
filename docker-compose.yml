@@ -13,7 +13,7 @@ services:
       - ./apps/api/src/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
       - ./apps/api/src/db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
     ports:
-      - "5432:5432"
+      - "5433:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-bhavana}"]
       interval: 10s
@@ -122,7 +122,7 @@ services:
       minio:
         condition: service_healthy
     ports:
-      - "5000:5000"
+      - "5001:5000"
 
   # ─── Web (Public Site) ─────────────────────────────────────────────────────
   web:
