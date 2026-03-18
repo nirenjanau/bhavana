@@ -1,0 +1,28 @@
+FROM node:20-alpine AS base
+WORKDIR /app
+RUN apk add --no-cache libc6-compat
+
+FROM base AS deps
+COPY package*.json ./
+RUN npm install --omit=dev
+
+FROM base AS builder
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Runtime: Sharp uses prebuilt binaries; we only need the vips runtime library (not -dev).
+FROM node:20-alpine AS runner
+RUN apk add --no-cache vips
+WORKDIR /app
+ENV NODE_ENV=production
+RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nodeuser
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package.json ./package.json
+
+USER nodeuser
+EXPOSE 5000
+CMD ["node", "dist/index.js"]

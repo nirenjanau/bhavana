@@ -1,0 +1,28 @@
+{
+  "name": "bhavana-studio",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "services/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:dashboard\" \"npm run dev:api\"",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:dashboard": "npm run dev --workspace=apps/client-dashboard",
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:image": "npm run dev --workspace=services/image-processing",
+    "build": "npm run build --workspaces",
+    "build:web": "npm run build --workspace=apps/web",
+    "build:dashboard": "npm run build --workspace=apps/client-dashboard",
+    "build:api": "npm run build --workspace=apps/api",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:build": "docker-compose build",
+    "db:migrate": "npm run migrate --workspace=apps/api",
+    "db:seed": "npm run seed --workspace=apps/api"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
