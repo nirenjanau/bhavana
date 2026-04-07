@@ -8,10 +8,9 @@ export default function AboutTeaser() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Image */}
           <div className="relative aspect-[3/4] overflow-hidden">
-            <Image
-              src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1200"
+            <img
+              src="/Screenshot_20251015-134437.png"
               alt="Bhavana photographer"
-              fill
               className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />

@@ -2,23 +2,23 @@ import Link from "next/link";
 
 const packages = [
   {
-    name: "Essentials",
-    price: "₹45,000",
-    description: "Perfect for intimate ceremonies and portraits",
-    features: ["4 hours coverage", "1 photographer", "200+ edited images", "Private online gallery"],
+    name: "Standard",
+    price: "₹60,000",
+    description: "Simple and clean coverage for wedding and reception",
+    features: ["Pre-wedding shoot", "Wedding + reception coverage", "Classic NT album", "5-min intro video"],
   },
   {
-    name: "Signature",
+    name: "Classical",
     price: "₹95,000",
-    description: "Our most popular full-day experience",
-    features: ["8 hours coverage", "2 photographers", "500+ edited images", "Album included", "Private online gallery"],
+    description: "Most popular package with complete candid moments coverage",
+    features: ["Pre-wedding shoot", "3-5 min highlights", "Full wedding video", "Classic NT HD album (90 pages)"],
     featured: true,
   },
   {
-    name: "Luxury",
-    price: "₹1,75,000",
-    description: "An immersive, multi-day cinematic experience",
-    features: ["2–3 days coverage", "2 photographers + videographer", "800+ edited images", "Premium heirloom album", "Same-day highlights reel"],
+    name: "Premium",
+    price: "₹1,25,000",
+    description: "Best cinematic output with premium album quality",
+    features: ["Pre-wedding photo + video", "Wedding reel + highlights", "Full-length wedding film", "Premium Pearl album (120 pages)"],
   },
 ];
 

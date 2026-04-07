@@ -9,64 +9,76 @@ export const metadata: Metadata = {
 const packages = [
   {
     tier: "01",
-    name: "Essentials",
-    price: "₹45,000",
-    tagline: "Perfect for intimate ceremonies and portraits",
+    name: "Standard",
+    price: "₹60,000",
+    tagline: "Simple and clean coverage without too many extras",
     features: [
-      "4 hours of photography coverage",
-      "1 professional photographer",
-      "200+ fully edited images",
-      "Private online gallery access",
-      "High-resolution digital downloads",
-      "14-day delivery",
+      "Pre-wedding shoot",
+      "Guruvayur wedding coverage",
+      "Thrissur reception coverage",
+      "Safe-camera video and still",
+      "All still photos",
+      "Pen drive delivery",
+      "All photos in Google Drive",
+      "Table calendar",
+      "Classic NT album (glitter / matte finish)",
+      "5-minute intro video",
     ],
-    addOns: ["Extra hour: ₹8,000", "Second shooter: ₹15,000"],
+    addOns: [],
     featured: false,
   },
   {
     tier: "02",
-    name: "Signature",
+    name: "Classical",
     price: "₹95,000",
-    tagline: "Our most popular full-day experience",
+    tagline: "Most popular package with complete coverage and better album quality",
     features: [
-      "8 hours of photography coverage",
-      "2 professional photographers",
-      "500+ fully edited images",
-      "Private online gallery access",
-      "High-resolution digital downloads",
-      "Premium 40-page flush-mount album",
-      "Engagement / pre-wedding session included",
-      "7-day priority delivery",
+      "Pre-wedding shoot",
+      "Guruvayur wedding coverage",
+      "Thrissur reception coverage",
+      "3–5 min highlight video",
+      "Full-length wedding video",
+      "Classic NT HD album (90 pages)",
+      "Synthetic NT paper (non-tearable)",
+      "Glitter / glossy / matte laminations",
+      "Mini book",
+      "Table calendar",
+      "2 framed photos",
+      "All images in Drive + pen drive",
     ],
-    addOns: ["Videography: ₹60,000", "Same-day highlights: ₹20,000"],
+    addOns: [],
     featured: true,
   },
   {
     tier: "03",
-    name: "Luxury",
-    price: "₹1,75,000",
-    tagline: "An immersive, multi-day cinematic experience",
+    name: "Premium",
+    price: "₹1,25,000",
+    tagline: "Best output with premium album quality and cinematic coverage",
     features: [
-      "2–3 days of full coverage",
-      "2 photographers + videographer",
-      "800+ fully edited images",
-      "Private online gallery access",
-      "4K cinematic wedding film (5–7 min)",
-      "Premium heirloom album (60 pages)",
-      "Same-day highlight reel",
-      "Destination travel included within India",
-      "Priority 5-day delivery",
+      "Pre-wedding photography and videography",
+      "Guruvayur wedding coverage",
+      "Thrissur reception coverage",
+      "Wedding reel",
+      "3–5 min highlight video",
+      "Full-length wedding film",
+      "Premium Pearl album (120 pages, unlimited photos)",
+      "Family book",
+      "Laminated photo",
+      "Table calendar",
+      "Custom pen drive",
+      "2 framed photos",
+      "All images in Drive + pen drive",
     ],
-    addOns: ["International travel: quote available", "Fine art prints: from ₹5,000"],
+    addOns: [],
     featured: false,
   },
 ];
 
 const addOns = [
-  { name: "Photo Booth", price: "₹20,000", desc: "3 hours with unlimited prints" },
-  { name: "Drone Aerial", price: "₹15,000", desc: "FAA-licensed drone coverage" },
-  { name: "Heirloom Prints", price: "From ₹5,000", desc: "Gallery-quality fine art prints" },
-  { name: "Rush Delivery", price: "₹10,000", desc: "48-hour turnaround" },
+  { name: "Wedding Reel", price: "Included in Premium", desc: "Short cinematic cut for social sharing" },
+  { name: "Mini Book", price: "Included in Classical", desc: "Handy compact album of selected moments" },
+  { name: "Premium Pearl Album", price: "Included in Premium", desc: "120-page premium album with unlimited photos" },
+  { name: "Framed Photos", price: "Included in Classical & Premium", desc: "Two framed prints for display" },
 ];
 
 export default function PackagesPage() {
@@ -78,8 +90,8 @@ export default function PackagesPage() {
           <p className="text-xs tracking-ultra-wide uppercase text-stone-400 mb-4">Investment</p>
           <h1 className="text-display text-6xl md:text-8xl text-stone-900 mb-6">Packages</h1>
           <p className="text-stone-500 max-w-xl text-lg">
-            Every package includes our full creative direction, post-processing artistry, and
-            a private client gallery portal.
+            Choose from Standard, Classical, and Premium wedding packages based on the
+            album quality and level of cinematic coverage you prefer.
           </p>
         </div>
       </div>
