@@ -1,0 +1,56 @@
+# Development override. Use alongside docker-compose.yml:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+#
+# What this does differently from the production compose file:
+#   - Builds with lightweight dev Dockerfiles (no next build / no tsc).
+#   - Bind-mounts your source into the container so edits on the host are
+#     visible instantly inside the container.
+#   - Uses anonymous volumes for node_modules / .next so the macOS-built
+#     deps on the host don't shadow the Linux-built deps in the container.
+#   - Enables filesystem polling, which is required on macOS for Next.js /
+#     webpack / chokidar to see file changes inside Docker Desktop.
+#   - Runs `next dev` / `tsx watch` so saves trigger recompiles.
+
+services:
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: ../../infrastructure/docker/Dockerfile.web.dev
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:4000
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./apps/web:/app
+      - /app/node_modules
+      - /app/.next
+
+  dashboard:
+    build:
+      context: ./apps/client-dashboard
+      dockerfile: ../../infrastructure/docker/Dockerfile.dashboard.dev
+    environment:
+      NODE_ENV: development
+      NEXTAUTH_URL: http://localhost:3001
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-change-me-in-production}
+      NEXT_PUBLIC_API_URL: http://localhost:4000
+      API_URL: http://api:4000
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./apps/client-dashboard:/app
+      - /app/node_modules
+      - /app/.next
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: ../../infrastructure/docker/Dockerfile.api.dev
+    environment:
+      NODE_ENV: development
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./apps/api:/app
+      - /app/node_modules

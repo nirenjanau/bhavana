@@ -18,8 +18,8 @@ export default function HeroSection() {
       {/* Background image / overlay */}
       <div className="absolute inset-0">
         <Image
-          src="/hero-bg.png"
-          alt="Bhavana Studio hero"
+          src="/hero-temple-wedding-night.jpg"
+          alt="Temple wedding ceremony at night"
           fill
           priority
           className="object-cover object-center"

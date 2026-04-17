@@ -27,8 +27,7 @@ export default function Footer() {
               {[
                 ["Home", "/"],
                 ["Portfolio", "/portfolio"],
-                ["Packages", "/packages"],
-                ["About", "/about"],
+                // ["About", "/about"],
                 ["Contact", "/contact"],
               ].map(([label, href]) => (
                 <li key={href}>

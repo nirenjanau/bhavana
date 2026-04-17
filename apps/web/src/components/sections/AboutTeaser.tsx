@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 
 export default function AboutTeaser() {
   return (
@@ -9,7 +8,7 @@ export default function AboutTeaser() {
           {/* Image */}
           <div className="relative aspect-[3/4] overflow-hidden">
             <img
-              src="/Screenshot_20251015-134437.png"
+              src="/wedding-red-couple-garden.jpg"
               alt="Bhavana photographer"
               className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -36,12 +35,12 @@ export default function AboutTeaser() {
               we approach every session with patience, artistry, and an eye for
               the extraordinary in the ordinary.
             </p>
-            <Link
+            {/* <Link
               href="/about"
               className="inline-block text-xs tracking-widest uppercase border-b border-stone-900 pb-1 hover:text-stone-500 hover:border-stone-500 transition-colors"
             >
               Our Story →
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

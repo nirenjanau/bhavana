@@ -1,35 +1,41 @@
 import Image from "next/image";
 import Link from "next/link";
 
+// One representative photo from each category
 const featured = [
   {
-    src: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200",
-    alt: "Beach wedding ceremony",
+    src: "/wedding-red-couple-reflection.jpg",
+    alt: "Wedding couple at sunset",
     label: "Wedding",
+    category: "Wedding",
     span: "col-span-1 row-span-2",
   },
   {
-    src: "https://images.unsplash.com/photo-1529634597503-139d3726fed5?q=80&w=1200",
-    alt: "Monsoon pre-wedding",
-    label: "Couple",
+    src: "/prewedding-bride-saree-kasavu.jpg",
+    alt: "Pre-wedding couple portrait",
+    label: "Pre-Wedding",
+    category: "Pre-Wedding",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200",
-    alt: "Minimalist portrait",
-    label: "Portrait",
+    src: "/temple-wedding-couple-walk.jpg",
+    alt: "Temple wedding in traditional attire",
+    label: "Temple Wedding",
+    category: "Temple Wedding",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=1200",
-    alt: "Bridal details",
-    label: "Wedding",
+    src: "/SnapInsta.to_589022024_18034588811735300_7755584068335030919_n.jpg",
+    alt: "Portrait photoshoot",
+    label: "Photoshoot",
+    category: "Photoshoot",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200",
-    alt: "Candid family moment",
-    label: "Family",
+    src: "/SnapInsta.to_615920622_18039592814735300_5175319752092740945_n.jpg",
+    alt: "Classical dance performance",
+    label: "Dance",
+    category: "Dance",
     span: "col-span-1 row-span-1",
   },
 ];
@@ -58,8 +64,9 @@ export default function PortfolioGrid() {
         {/* Asymmetric grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 auto-rows-[280px]">
           {featured.map((item, i) => (
-            <div
+            <Link
               key={i}
+              href={`/portfolio?category=${encodeURIComponent(item.category)}`}
               className={`relative overflow-hidden group cursor-pointer ${item.span}`}
             >
               <Image
@@ -75,7 +82,7 @@ export default function PortfolioGrid() {
                   {item.label}
                 </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
