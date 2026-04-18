@@ -6,7 +6,7 @@ export default function ContactCTA() {
     <section className="relative py-32 md:py-48 overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2000"
+          src="/wed-11.jpg"
           alt="Wedding photography"
           fill
           className="object-cover object-center"

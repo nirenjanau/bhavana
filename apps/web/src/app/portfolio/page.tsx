@@ -96,6 +96,27 @@ const allPhotos: PortfolioPhoto[] = [
     height: 1024,
   },
   {
+    src: "/wed-11.jpg",
+    category: "Wedding",
+    title: "Wedding Portrait XI",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/wed-12.jpg",
+    category: "Wedding",
+    title: "Wedding Portrait XII",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/wed-13.jpg",
+    category: "Wedding",
+    title: "Wedding Portrait XIII",
+    width: 768,
+    height: 1024,
+  },
+  {
     src: "/photoshoot-1.jpg",
     category: "Photoshoot",
     title: "Photoshoot Portrait I",
@@ -152,6 +173,13 @@ const allPhotos: PortfolioPhoto[] = [
     height: 1024,
   },
   {
+    src: "/photoshoot-10.jpg",
+    category: "Photoshoot",
+    title: "Photoshoot Portrait X",
+    width: 832,
+    height: 1024,
+  },
+  {
     src: "/pre-1.jpg",
     category: "Pre-Wedding",
     title: "Pre-Wedding Portrait I",
@@ -196,21 +224,21 @@ const allPhotos: PortfolioPhoto[] = [
   {
     src: "/pre-7.jpg",
     category: "Pre-Wedding",
-    title: "Pre-Wedding Portrait VI",
+    title: "Pre-Wedding Portrait VII",
     width: 768,
     height: 1024,
   },
   {
     src: "/pre-8.jpg",
     category: "Pre-Wedding",
-    title: "Pre-Wedding Portrait VI",
+    title: "Pre-Wedding Portrait VIII",
     width: 768,
     height: 1024,
   },
   {
     src: "/pre-9.jpg",
     category: "Pre-Wedding",
-    title: "Pre-Wedding Portrait VI",
+    title: "Pre-Wedding Portrait IX",
     width: 768,
     height: 1024,
   },
@@ -404,20 +432,24 @@ export default function PortfolioPage({ searchParams }: PortfolioPageProps) {
       ? requestedCategory
       : "All";
 
-  // Curated selection for "All" view - mix of best photos from each category
-  // Note: Photos shown here won't repeat when filtering by specific category
-  const allViewPhotos = [
-    allPhotos[0], // Wedding
-    allPhotos[18], // Pre-Wedding
-    allPhotos[8], // Photoshoot
-    allPhotos[7], // Wedding
-    allPhotos[40], // Dance VII
-    allPhotos[2], // Wedding
-    allPhotos[9], // Photoshoot II
-    allPhotos[19], // Pre-Wedding
-    allPhotos[5], // Wedding
-    allPhotos[47], // Dance XIV
+  // Curated "All" mix — keyed by src so new entries in allPhotos do not break indices
+  const allViewCuratedSrcs = [
+    "/wed-1.jpg",
+    "/pre-1.jpg",
+    "/photoshoot-1.jpg",
+    "/wed-8.jpg",
+    "/dance-7.jpg",
+    "/wed-3.jpg",
+    "/photoshoot-4.jpg",
+    "/pre-5.jpg",
+    "/wed-6.jpg",
+    "/dance-14.jpg",
+    "/wed-11.jpg",
+    "/photoshoot-10.jpg",
   ];
+  const allViewPhotos = allViewCuratedSrcs
+    .map((src) => allPhotos.find((p) => p.src === src))
+    .filter((p): p is PortfolioPhoto => p !== undefined);
 
   const filteredPhotos =
     activeCategory === "All"

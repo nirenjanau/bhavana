@@ -32,7 +32,7 @@ export default function HeroSection() {
       <div className="relative h-full flex flex-col justify-end pb-16 md:pb-24 container-wide">
         <div className="max-w-3xl">
           <p className="text-white/60 text-xs tracking-ultra-wide uppercase mb-6 animate-fade-up">
-            Fine Art Photography · Bangalore
+            Fine Art Photography · Guruvayoor
           </p>
           <h1 className="text-display text-white text-6xl md:text-8xl lg:text-9xl mb-8 animate-fade-up">
             Capturing

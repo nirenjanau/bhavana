@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-// One representative photo from each category with dimensions
+// One representative photo per category (includes newly added assets where relevant)
 const featured = [
   {
     src: "/wed-1.jpg",
-    alt: "Wedding couple at sunset",
+    alt: "Wedding photography",
     label: "Wedding",
     category: "Wedding",
     width: 768,
@@ -19,16 +19,8 @@ const featured = [
     width: 768,
     height: 1024,
   },
-    {
-    src: "/dance-13.jpg",
-    alt: "Classical dance performance",
-    label: "Dance",
-    category: "Dance",
-    width: 768,
-    height: 1024,
-  },
   {
-    src: "/temple-6.jpg",
+    src: "/temple-3.jpg",
     alt: "Temple wedding in traditional attire",
     label: "Temple Wedding",
     category: "Temple Wedding",
@@ -36,7 +28,7 @@ const featured = [
     height: 1024,
   },
   {
-    src: "/photoshoot-1.jpg",
+    src: "/photoshoot-10.jpg",
     alt: "Portrait photoshoot",
     label: "Photoshoot",
     category: "Photoshoot",
@@ -44,34 +36,18 @@ const featured = [
     height: 1024,
   },
   {
-    src: "/temple-6.jpg",
-    alt: "Temple wedding in traditional attire",
-    label: "Temple Wedding",
-    category: "Temple Wedding",
-    width: 832,
-    height: 1024,
-  },
-    {
-    src: "/temple-3.jpg",
-    alt: "Temple wedding in traditional attire",
-    label: "Temple Wedding",
-    category: "Temple Wedding",
-    width: 832,
-    height: 1024,
-  },
-  {
-    src: "/dance-1.jpg",
+    src: "/dance-13.jpg",
     alt: "Classical dance performance",
     label: "Dance",
     category: "Dance",
     width: 768,
     height: 1024,
   },
-    {
-    src: "/temple-1.jpg",
-    alt: "Temple wedding in traditional attire",
-    label: "Temple Wedding",
-    category: "Temple Wedding",
+{
+    src: "/wed-6.jpg",
+    alt: "Wedding photography",
+    label: "Wedding",
+    category: "Wedding",
     width: 768,
     height: 1024,
   },
@@ -102,7 +78,7 @@ export default function PortfolioGrid() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {featured.map((item, i) => (
             <Link
-              key={i}
+              key={item.src}
               href={`/portfolio?category=${encodeURIComponent(item.category)}`}
               className="relative overflow-hidden group cursor-pointer"
             >

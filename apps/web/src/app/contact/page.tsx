@@ -32,21 +32,22 @@ export default function ContactPage() {
               <div className="space-y-6">
                 <div>
                   <p className="text-xs tracking-widest uppercase text-stone-400 mb-1">Email</p>
-                  <a href="mailto:hello@bhavanastudio.com" className="text-stone-900 hover:text-stone-500 transition-colors">
-                    hello@bhavanastudio.com
+                  <a href="mailto:bhavanastudio@gmail.com" className="text-stone-900 hover:text-stone-500 transition-colors">
+                    bhavanastudio@gmail.com
                   </a>
                 </div>
                 <div>
                   <p className="text-xs tracking-widest uppercase text-stone-400 mb-1">Phone</p>
                   <a href="tel:+919876543210" className="text-stone-900 hover:text-stone-500 transition-colors">
-                    +91 98765 43210
+                    +91 93871 03562
                   </a>
                 </div>
                 <div>
                   <p className="text-xs tracking-widest uppercase text-stone-400 mb-1">Studio</p>
                   <p className="text-stone-900">
-                    12, Church Street, Bangalore 560001<br />
-                    Karnataka, India
+                    Sreedevi Arcade<br />
+                    Kairali Junction, Mammyoor<br />
+                    Guruvayoor, Kerala, India
                   </p>
                 </div>
                 <div>

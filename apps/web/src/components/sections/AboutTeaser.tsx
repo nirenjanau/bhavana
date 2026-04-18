@@ -8,7 +8,7 @@ export default function AboutTeaser() {
           {/* Image */}
           <div className="relative aspect-[3/4] overflow-hidden">
             <img
-              src="/wed-2.jpg"
+              src="/photoshoot-10.jpg"
               alt="Bhavana photographer"
               className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
               sizes="(max-width: 1024px) 100vw, 50vw"
