@@ -14,7 +14,7 @@ export default function Footer() {
             </h3>
             <p className="text-sm leading-relaxed text-stone-500">
               Fine art photography for weddings, portraits, and life&apos;s
-              milestone moments. Based in Bangalore — available worldwide.
+              milestone moments. Based in Guruvayoor, Kerala — available worldwide.
             </p>
           </div>
 
@@ -50,10 +50,10 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <a
-                  href="mailto:hello@bhavanastudio.com"
+                  href="mailto:bhavanastudio@gmail.com"
                   className="text-stone-400 hover:text-white transition-colors"
                 >
-                  hello@bhavanastudio.com
+                  bhavanastudio@gmail.com
                 </a>
               </li>
               <li>
@@ -61,10 +61,10 @@ export default function Footer() {
                   href="tel:+919876543210"
                   className="text-stone-400 hover:text-white transition-colors"
                 >
-                  +91 98765 43210
+                  +91 93871 03562
                 </a>
               </li>
-              <li className="text-stone-500">Bangalore, Karnataka, India</li>
+              <li className="text-stone-500">Guruvayoor, Kerala, India</li>
             </ul>
 
             <div className="flex gap-4 mt-6">
