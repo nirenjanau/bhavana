@@ -68,7 +68,7 @@ export default function Footer() {
             </ul>
 
             <div className="flex gap-4 mt-6">
-              {["Instagram", "Facebook", "Pinterest"].map((s) => (
+              {["Instagram"].map((s) => (
                 <a
                   key={s}
                   href="#"
