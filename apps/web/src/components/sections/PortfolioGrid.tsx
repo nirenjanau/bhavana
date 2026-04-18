@@ -1,42 +1,79 @@
 import Image from "next/image";
 import Link from "next/link";
 
-// One representative photo from each category
+// One representative photo from each category with dimensions
 const featured = [
   {
-    src: "/wedding-red-couple-reflection.jpg",
+    src: "/wed-1.jpg",
     alt: "Wedding couple at sunset",
     label: "Wedding",
     category: "Wedding",
-    span: "col-span-1 row-span-2",
+    width: 768,
+    height: 1024,
   },
   {
-    src: "/prewedding-bride-saree-kasavu.jpg",
+    src: "/pre-1.jpg",
     alt: "Pre-wedding couple portrait",
     label: "Pre-Wedding",
     category: "Pre-Wedding",
-    span: "col-span-1 row-span-1",
+    width: 768,
+    height: 1024,
   },
-  {
-    src: "/temple-wedding-couple-walk.jpg",
-    alt: "Temple wedding in traditional attire",
-    label: "Temple Wedding",
-    category: "Temple Wedding",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "/SnapInsta.to_589022024_18034588811735300_7755584068335030919_n.jpg",
-    alt: "Portrait photoshoot",
-    label: "Photoshoot",
-    category: "Photoshoot",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: "/SnapInsta.to_615920622_18039592814735300_5175319752092740945_n.jpg",
+    {
+    src: "/dance-13.jpg",
     alt: "Classical dance performance",
     label: "Dance",
     category: "Dance",
-    span: "col-span-1 row-span-1",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/temple-6.jpg",
+    alt: "Temple wedding in traditional attire",
+    label: "Temple Wedding",
+    category: "Temple Wedding",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/photoshoot-1.jpg",
+    alt: "Portrait photoshoot",
+    label: "Photoshoot",
+    category: "Photoshoot",
+    width: 832,
+    height: 1024,
+  },
+  {
+    src: "/temple-6.jpg",
+    alt: "Temple wedding in traditional attire",
+    label: "Temple Wedding",
+    category: "Temple Wedding",
+    width: 832,
+    height: 1024,
+  },
+    {
+    src: "/temple-3.jpg",
+    alt: "Temple wedding in traditional attire",
+    label: "Temple Wedding",
+    category: "Temple Wedding",
+    width: 832,
+    height: 1024,
+  },
+  {
+    src: "/dance-1.jpg",
+    alt: "Classical dance performance",
+    label: "Dance",
+    category: "Dance",
+    width: 768,
+    height: 1024,
+  },
+    {
+    src: "/temple-1.jpg",
+    alt: "Temple wedding in traditional attire",
+    label: "Temple Wedding",
+    category: "Temple Wedding",
+    width: 768,
+    height: 1024,
   },
 ];
 
@@ -61,24 +98,25 @@ export default function PortfolioGrid() {
           </Link>
         </div>
 
-        {/* Asymmetric grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 auto-rows-[280px]">
+        {/* Responsive grid - images at their natural sizes */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {featured.map((item, i) => (
             <Link
               key={i}
               href={`/portfolio?category=${encodeURIComponent(item.category)}`}
-              className={`relative overflow-hidden group cursor-pointer ${item.span}`}
+              className="relative overflow-hidden group cursor-pointer"
             >
               <Image
                 src={item.src}
                 alt={item.alt}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 50vw, 33vw"
+                width={item.width}
+                height={item.height}
+                className="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/30 transition-all duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <span className="text-xs tracking-widest uppercase text-white/80">
+              <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <span className="text-sm tracking-widest uppercase text-white font-medium">
                   {item.label}
                 </span>
               </div>

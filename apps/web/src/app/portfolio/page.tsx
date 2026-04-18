@@ -26,145 +26,367 @@ const categories = [
 
 const allPhotos: PortfolioPhoto[] = [
   {
-    src: "/wedding-red-couple-reflection.jpg",
+    src: "/wed-1.jpg",
     category: "Wedding",
-    title: "Wedding Couple Sunset",
-    width: 769,
-    height: 1024,
-  },
-  {
-    src: "/wedding-red-couple-garden.jpg",
-    category: "Wedding",
-    title: "Wedding Garden Candid",
+    title: "Wedding Portrait I",
     width: 768,
     height: 1024,
   },
   {
-    src: "/wedding-red-bride-reflection.jpg",
+    src: "/wed-2.jpg",
     category: "Wedding",
-    title: "Wedding Bride Reflection",
+    title: "Wedding Portrait II",
     width: 768,
     height: 1024,
   },
   {
-    src: "/wedding-beach-couple-sunset.jpg",
+    src: "/wed-3.jpg",
     category: "Wedding",
-    title: "Wedding Beach Sunset Couple",
+    title: "Wedding Portrait III",
     width: 768,
     height: 1024,
   },
   {
-    src: "/wedding-beach-closeup-smile.jpg",
+    src: "/wed-4.jpg",
     category: "Wedding",
-    title: "Wedding Beach Close-up",
+    title: "Wedding Portrait IV",
     width: 768,
     height: 1024,
   },
   {
-    src: "/wedding-beach-arch-window.jpg",
+    src: "/wed-5.jpg",
     category: "Wedding",
-    title: "Wedding Beach Arch Portrait",
+    title: "Wedding Portrait V",
     width: 768,
     height: 1024,
   },
   {
-    src: "/SnapInsta.to_589963019_18034588787735300_8002153575810695012_n.jpg",
+    src: "/wed-6.jpg",
+    category: "Wedding",
+    title: "Wedding Portrait VI",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/wed-7.jpg",
+    category: "Wedding",
+    title: "Wedding Portrait VII",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/wed-8.jpg",
+    category: "Wedding",
+    title: "Wedding Portrait VIII",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/wed-9.jpg",
+    category: "Wedding",
+    title: "Wedding Portrait IX",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/wed-10.jpg",
+    category: "Wedding",
+    title: "Wedding Portrait X",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/photoshoot-1.jpg",
     category: "Photoshoot",
-    title: "Bhavana Photographer",
-    width: 863,
-    height: 1071,
-  },
-  {
-    src: "/SnapInsta.to_589022024_18034588811735300_7755584068335030919_n.jpg",
-    category: "Photoshoot",
-    title: "Portrait Photoshoot",
-    width: 782,
-    height: 1024,
-  },
-  {
-    src: "/photoshoot-pink-saree-portrait-1.jpg",
-    category: "Photoshoot",
-    title: "Photoshoot Pink Saree Portrait I",
+    title: "Photoshoot Portrait I",
     width: 832,
     height: 1024,
   },
   {
-    src: "/photoshoot-pink-saree-portrait-2.jpg",
+    src: "/photoshoot-3.jpg",
     category: "Photoshoot",
-    title: "Photoshoot Pink Saree Portrait II",
+    title: "Photoshoot Portrait III",
     width: 832,
     height: 1024,
   },
   {
-    src: "/prewedding-bride-saree-kasavu.jpg",
-    category: "Pre-Wedding",
-    title: "Pre-Wedding Couple Portrait",
-    width: 765,
+    src: "/photoshoot-4.jpg",
+    category: "Photoshoot",
+    title: "Photoshoot Portrait IV",
+    width: 832,
     height: 1024,
   },
   {
-    src: "/prewedding-doorway-couple.jpg",
+    src: "/photoshoot-5.jpg",
+    category: "Photoshoot",
+    title: "Photoshoot Portrait V",
+    width: 832,
+    height: 1024,
+  },
+  {
+    src: "/photoshoot-6.jpg",
+    category: "Photoshoot",
+    title: "Photoshoot Portrait VI",
+    width: 832,
+    height: 1024,
+  },
+  {
+    src: "/photoshoot-7.jpg",
+    category: "Photoshoot",
+    title: "Photoshoot Portrait VII",
+    width: 832,
+    height: 1024,
+  },
+  {
+    src: "/photoshoot-8.jpg",
+    category: "Photoshoot",
+    title: "Photoshoot Portrait VIII",
+    width: 832,
+    height: 1024,
+  },
+  {
+    src: "/photoshoot-9.jpg",
+    category: "Photoshoot",
+    title: "Photoshoot Portrait IX",
+    width: 832,
+    height: 1024,
+  },
+  {
+    src: "/pre-1.jpg",
     category: "Pre-Wedding",
-    title: "Pre-Wedding Doorway Portrait",
+    title: "Pre-Wedding Portrait I",
     width: 768,
     height: 1024,
   },
   {
-    src: "/prewedding-orange-portrait.jpg",
+    src: "/pre-2.jpg",
     category: "Pre-Wedding",
-    title: "Pre-Wedding Orange Saree Portrait",
-    width: 1024,
-    height: 1024,
-  },
-  {
-    src: "/prewedding-smile-closeup.jpg",
-    category: "Pre-Wedding",
-    title: "Pre-Wedding Close-up Smile",
-    width: 1024,
-    height: 1024,
-  },
-  {
-    src: "/temple-wedding-couple-walk.jpg",
-    category: "Temple Wedding",
-    title: "Temple Kasavu Wedding",
+    title: "Pre-Wedding Portrait II",
     width: 768,
     height: 1024,
   },
   {
-    src: "/SnapInsta.to_657748489_18095835962046191_4582995963299546328_n.jpg",
-    category: "Temple Wedding",
-    title: "Temple Wedding Portrait",
+    src: "/pre-3.jpg",
+    category: "Pre-Wedding",
+    title: "Pre-Wedding Portrait III",
+    width: 768,
+    height: 1024,
   },
   {
-    src: "/SnapInsta.to_656314899_18107749237830196_699475007509695201_n (1).jpg",
-    category: "Temple Wedding",
-    title: "Temple Wedding Couple Walk",
+    src: "/pre-4.jpg",
+    category: "Pre-Wedding",
+    title: "Pre-Wedding Portrait IV",
+    width: 768,
+    height: 1024,
   },
   {
-    src: "/SnapInsta.to_655192689_18110226304832135_6709450498053993694_n.jpg",
-    category: "Temple Wedding",
-    title: "Temple Wedding Ritual Crowd",
+    src: "/pre-5.jpg",
+    category: "Pre-Wedding",
+    title: "Pre-Wedding Portrait V",
+    width: 768,
+    height: 1024,
   },
   {
-    src: "/SnapInsta.to_653466367_18109749901793576_1312211937127569578_n.jpg",
-    category: "Temple Wedding",
-    title: "Temple Wedding Blessing",
+    src: "/pre-6.jpg",
+    category: "Pre-Wedding",
+    title: "Pre-Wedding Portrait VI",
+    width: 768,
+    height: 1024,
   },
   {
-    src: "/SnapInsta.to_653108934_18082162952346305_104236921595586094_n.jpg",
-    category: "Temple Wedding",
-    title: "Temple Wedding Lamp Ceremony",
+    src: "/pre-7.jpg",
+    category: "Pre-Wedding",
+    title: "Pre-Wedding Portrait VI",
+    width: 768,
+    height: 1024,
   },
   {
-    src: "/SnapInsta.to_642509517_18044443079735300_8970737621993001547_n.jpg",
-    category: "Temple Wedding",
-    title: "Temple Wedding Sacred Ritual",
+    src: "/pre-8.jpg",
+    category: "Pre-Wedding",
+    title: "Pre-Wedding Portrait VI",
+    width: 768,
+    height: 1024,
   },
   {
-    src: "/SnapInsta.to_615920622_18039592814735300_5175319752092740945_n.jpg",
+    src: "/pre-9.jpg",
+    category: "Pre-Wedding",
+    title: "Pre-Wedding Portrait VI",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/temple-1.jpg",
+    category: "Temple Wedding",
+    title: "Temple Wedding I",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/temple - 2.jpg",
+    category: "Temple Wedding",
+    title: "Temple Wedding II",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/temple-3.jpg",
+    category: "Temple Wedding",
+    title: "Temple Wedding III",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/temple-4.jpg",
+    category: "Temple Wedding",
+    title: "Temple Wedding IV",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/temple-5.jpg",
+    category: "Temple Wedding",
+    title: "Temple Wedding V",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/temple-6.jpg",
+    category: "Temple Wedding",
+    title: "Temple Wedding VI",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/temple-8.jpg",
+    category: "Temple Wedding",
+    title: "Temple Wedding VII",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/temple-9.jpg",
+    category: "Temple Wedding",
+    title: "Temple Wedding VIII",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/temple-10.jpg",
+    category: "Temple Wedding",
+    title: "Temple Wedding IX",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/temple-11.jpg",
+    category: "Temple Wedding",
+    title: "Temple Wedding X",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/temple-12.jpg",
+    category: "Temple Wedding",
+    title: "Temple Wedding XI",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-1.jpg",
     category: "Dance",
-    title: "Classical Dance",
-    width: 634,
+    title: "Classical Dance I",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-2.jpg",
+    category: "Dance",
+    title: "Classical Dance II",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-3.jpg",
+    category: "Dance",
+    title: "Classical Dance III",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-4.jpg",
+    category: "Dance",
+    title: "Classical Dance IV",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-5.jpg",
+    category: "Dance",
+    title: "Classical Dance V",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-6.jpg",
+    category: "Dance",
+    title: "Classical Dance VI",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-7.jpg",
+    category: "Dance",
+    title: "Classical Dance VII",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-8.jpg",
+    category: "Dance",
+    title: "Classical Dance VIII",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-9.jpg",
+    category: "Dance",
+    title: "Classical Dance IX",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-10.jpg",
+    category: "Dance",
+    title: "Classical Dance X",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-11.jpg",
+    category: "Dance",
+    title: "Classical Dance XI",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-12.jpg",
+    category: "Dance",
+    title: "Classical Dance XII",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-13.jpg",
+    category: "Dance",
+    title: "Classical Dance XIII",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/dance-14.jpg",
+    category: "Dance",
+    title: "Classical Dance XIV",
+    width: 768,
     height: 1024,
   },
 ];
@@ -183,15 +405,18 @@ export default function PortfolioPage({ searchParams }: PortfolioPageProps) {
       : "All";
 
   // Curated selection for "All" view - mix of best photos from each category
+  // Note: Photos shown here won't repeat when filtering by specific category
   const allViewPhotos = [
-    allPhotos[0],  // Wedding
-    allPhotos[9],  // Pre-Wedding
-    allPhotos[12], // Temple Wedding
-    allPhotos[6],  // Photoshoot
-    allPhotos[19], // Dance
-    allPhotos[2],  // Wedding
-    allPhotos[14], // Temple Wedding
-    allPhotos[10], // Pre-Wedding
+    allPhotos[0], // Wedding
+    allPhotos[18], // Pre-Wedding
+    allPhotos[8], // Photoshoot
+    allPhotos[7], // Wedding
+    allPhotos[40], // Dance VII
+    allPhotos[2], // Wedding
+    allPhotos[9], // Photoshoot II
+    allPhotos[19], // Pre-Wedding
+    allPhotos[5], // Wedding
+    allPhotos[47], // Dance XIV
   ];
 
   const filteredPhotos =
@@ -230,21 +455,38 @@ export default function PortfolioPage({ searchParams }: PortfolioPageProps) {
         </div>
       </div>
 
-      {/* Masonry Grid */}
+      {/* Masonry grid: natural image sizes for dynamic layout */}
       <div className="container-wide py-12 md:py-16">
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-          {filteredPhotos.map((photo, i) => (
-            <div key={i} className="break-inside-avoid relative group overflow-hidden">
+        <div
+          className={
+            activeCategory === "Dance"
+              ? "columns-1 gap-x-4 sm:columns-2 md:columns-3 xl:columns-4"
+              : activeCategory === "Wedding"
+              ? "columns-1 gap-x-4 sm:columns-2 md:columns-2 lg:columns-3"
+              : "columns-1 gap-x-4 sm:columns-2 lg:columns-3"
+          }
+        >
+          {filteredPhotos.map((photo) => (
+            <div
+              key={photo.src}
+              className="break-inside-avoid mb-4 relative group overflow-hidden rounded-sm bg-stone-200/60 shadow-sm ring-1 ring-stone-200/80"
+            >
               <Image
                 src={photo.src}
                 alt={photo.title}
-                width={photo.width ?? 600}
-                height={photo.height ?? 400}
-                className="w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                width={photo.width ?? 768}
+                height={photo.height ?? 1024}
+                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes={
+                  activeCategory === "Dance"
+                    ? "(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                    : activeCategory === "Wedding"
+                    ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                }
               />
-              <div className="absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/40 transition-all duration-300 flex items-end">
-                <div className="p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <div className="pointer-events-none absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/40 transition-all duration-300 flex items-end">
+                <div className="p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none">
                   <p className="text-white font-serif text-xl italic">{photo.title}</p>
                   <p className="text-white/60 text-xs tracking-widest uppercase mt-1">{photo.category}</p>
                 </div>
