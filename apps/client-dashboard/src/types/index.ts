@@ -37,6 +37,42 @@ export interface Client {
   created_at: string;
   total_photos: number;
   selected_photos: number;
+  storage_quota_bytes: number | string;
+  storage_used_bytes: number | string;
+}
+
+export interface Folder {
+  id: string;
+  client_id: string;
+  title: string;
+  description: string | null;
+  shoot_date: string | null;
+  parent_album_id: string | null;
+  sort_order: number;
+  created_at: string;
+  photo_count: number | string;
+  folder_count: number | string;
+}
+
+export interface BreadcrumbNode {
+  id: string;
+  title: string;
+  parent_album_id: string | null;
+}
+
+export interface TreeResponse {
+  current: { id: string; title: string; parent_album_id: string | null } | null;
+  breadcrumb: BreadcrumbNode[];
+  folders: Folder[];
+  photos: Photo[];
+  pagination: Pagination;
+}
+
+export interface StorageUsage {
+  quota_bytes: number;
+  used_bytes: number;
+  photo_count: number;
+  folder_count: number;
 }
 
 export type Filter = "all" | "liked" | "selected";

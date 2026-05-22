@@ -3,11 +3,14 @@
 import { useState, useCallback } from "react";
 import useSWR from "swr";
 import { signOut } from "next-auth/react";
-import { Download, Heart, CheckSquare, LogOut, Grid2X2, Grid3X3 } from "lucide-react";
+import { Download, Heart, CheckSquare, LogOut, Grid2X2, Grid3X3, FolderTree } from "lucide-react";
 import toast from "react-hot-toast";
 import type { Filter, GalleryResponse, GalleryStats } from "@/types";
 import PhotoCard from "./PhotoCard";
+import FolderBrowser from "./FolderBrowser";
 import { toggleLike, toggleSelect, bulkDownload } from "@/lib/api";
+
+type View = "folders" | Filter;
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 const LIMIT = 24;
@@ -24,16 +27,20 @@ interface Props {
 }
 
 export default function GalleryClient({ userName, token }: Props) {
-  const [filter, setFilter] = useState<Filter>("all");
+  const [view, setView] = useState<View>("folders");
+  const [folderId, setFolderId] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [columns, setColumns] = useState<3 | 4>(4);
   const [downloading, setDownloading] = useState(false);
+
+  const filter: Filter = view === "folders" ? "all" : view;
+  const flatMode = view !== "folders";
 
   const galleryKey = `${API_URL}/api/gallery?filter=${filter}&page=${page}&limit=${LIMIT}`;
   const statsKey = `${API_URL}/api/gallery/stats`;
 
   const { data: gallery, mutate: mutateGallery } = useSWR<GalleryResponse>(
-    galleryKey,
+    flatMode ? galleryKey : null,
     (url: string) => fetcher(url, token),
     { keepPreviousData: true }
   );
@@ -116,7 +123,8 @@ export default function GalleryClient({ userName, token }: Props) {
     }
   }, [token]);
 
-  const tabs: { value: Filter; label: string; count?: number }[] = [
+  const tabs: { value: View; label: string; count?: number; icon?: React.ReactNode }[] = [
+    { value: "folders", label: "Folders", icon: <FolderTree size={13} /> },
     { value: "all", label: "All Photos", count: stats?.total },
     { value: "liked", label: "Liked", count: stats?.liked },
     { value: "selected", label: "Selected", count: stats?.selected },
@@ -191,20 +199,21 @@ export default function GalleryClient({ userName, token }: Props) {
               <button
                 key={tab.value}
                 onClick={() => {
-                  setFilter(tab.value);
+                  setView(tab.value);
                   setPage(1);
                 }}
                 className={`flex items-center gap-2 px-4 py-3 text-xs tracking-widest uppercase transition-colors border-b-2 -mb-px ${
-                  filter === tab.value
+                  view === tab.value
                     ? "border-stone-900 text-stone-900"
                     : "border-transparent text-stone-400 hover:text-stone-600"
                 }`}
               >
+                {tab.icon}
                 {tab.label}
                 {tab.count !== undefined && (
                   <span
                     className={`text-xs px-1.5 py-0.5 rounded ${
-                      filter === tab.value
+                      view === tab.value
                         ? "bg-stone-900 text-white"
                         : "bg-stone-100 text-stone-500"
                     }`}
@@ -233,8 +242,17 @@ export default function GalleryClient({ userName, token }: Props) {
           </div>
         </div>
 
-        {/* Empty states */}
-        {photos.length === 0 && !gallery && (
+        {/* Folder browser */}
+        {view === "folders" && (
+          <FolderBrowser
+            token={token}
+            folderId={folderId}
+            onNavigate={(id) => setFolderId(id)}
+          />
+        )}
+
+        {/* Empty states (flat modes) */}
+        {flatMode && photos.length === 0 && !gallery && (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {Array.from({ length: 12 }).map((_, i) => (
               <div key={i} className="aspect-square bg-stone-100 animate-pulse" />
@@ -242,7 +260,7 @@ export default function GalleryClient({ userName, token }: Props) {
           </div>
         )}
 
-        {photos.length === 0 && gallery && (
+        {flatMode && photos.length === 0 && gallery && (
           <div className="text-center py-24">
             <p className="text-stone-400 text-sm">
               {filter === "liked"
@@ -254,8 +272,8 @@ export default function GalleryClient({ userName, token }: Props) {
           </div>
         )}
 
-        {/* Photo grid */}
-        {photos.length > 0 && (
+        {/* Photo grid (flat) */}
+        {flatMode && photos.length > 0 && (
           <div
             className={`grid gap-2 sm:gap-3 ${
               columns === 3
@@ -276,7 +294,7 @@ export default function GalleryClient({ userName, token }: Props) {
         )}
 
         {/* Pagination */}
-        {pagination && pagination.pages > 1 && (
+        {flatMode && pagination && pagination.pages > 1 && (
           <div className="flex items-center justify-center gap-2 mt-12">
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}

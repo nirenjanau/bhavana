@@ -21,6 +21,7 @@ interface Photo {
 }
 
 // GET /api/gallery?filter=all|liked|selected&page=1&limit=24
+// Flat view across all folders. Used by the existing "All photos" tab.
 router.get("/", async (req: Request, res: Response) => {
   const clientId = req.user!.userId;
   const filter = (req.query.filter as string) ?? "all";
@@ -62,6 +63,109 @@ router.get("/", async (req: Request, res: Response) => {
   );
 
   return res.json({
+    photos,
+    pagination: {
+      page,
+      limit,
+      total: parseInt(count),
+      pages: Math.ceil(parseInt(count) / limit),
+    },
+  });
+});
+
+// GET /api/gallery/tree?parent_id=...
+// Drive-style listing: returns current folder, breadcrumb, child folders, and
+// photos directly inside this folder. parent_id omitted = client's root.
+router.get("/tree", async (req: Request, res: Response) => {
+  const clientId = req.user!.userId;
+  const parentId = (req.query.parent_id as string) || null;
+  const page = Math.max(1, parseInt(req.query.page as string) || 1);
+  const limit = Math.min(200, parseInt(req.query.limit as string) || 60);
+  const offset = (page - 1) * limit;
+
+  // If a parent_id is provided, verify the client owns that album.
+  let current: { id: string; title: string; parent_album_id: string | null } | null = null;
+  let breadcrumb: Array<{ id: string; title: string; parent_album_id: string | null }> = [];
+
+  if (parentId) {
+    const album = await queryOne<{
+      id: string;
+      title: string;
+      parent_album_id: string | null;
+      client_id: string;
+    }>(
+      "SELECT id, title, parent_album_id, client_id FROM albums WHERE id = $1",
+      [parentId]
+    );
+    if (!album || album.client_id !== clientId) {
+      return res.status(404).json({ error: "Folder not found" });
+    }
+    current = { id: album.id, title: album.title, parent_album_id: album.parent_album_id };
+
+    breadcrumb = await query<{ id: string; title: string; parent_album_id: string | null }>(
+      `WITH RECURSIVE chain AS (
+         SELECT id, title, parent_album_id, 0 AS depth
+         FROM albums WHERE id = $1
+         UNION ALL
+         SELECT a.id, a.title, a.parent_album_id, c.depth + 1
+         FROM albums a INNER JOIN chain c ON c.parent_album_id = a.id
+       )
+       SELECT id, title, parent_album_id FROM chain ORDER BY depth DESC`,
+      [parentId]
+    );
+  }
+
+  const folders = await query(
+    parentId
+      ? `SELECT a.id, a.title, a.description, a.shoot_date, a.sort_order,
+                (SELECT COUNT(*) FROM photos WHERE album_id = a.id) AS photo_count,
+                (SELECT COUNT(*) FROM albums WHERE parent_album_id = a.id) AS folder_count
+         FROM albums a
+         WHERE a.client_id = $1 AND a.parent_album_id = $2
+         ORDER BY a.sort_order ASC, a.created_at DESC`
+      : `SELECT a.id, a.title, a.description, a.shoot_date, a.sort_order,
+                (SELECT COUNT(*) FROM photos WHERE album_id = a.id) AS photo_count,
+                (SELECT COUNT(*) FROM albums WHERE parent_album_id = a.id) AS folder_count
+         FROM albums a
+         WHERE a.client_id = $1 AND a.parent_album_id IS NULL
+         ORDER BY a.sort_order ASC, a.created_at DESC`,
+    parentId ? [clientId, parentId] : [clientId]
+  );
+
+  const albumFilter = parentId ? "p.album_id = $2" : "p.album_id IS NULL";
+  const photoParams: unknown[] = parentId
+    ? [clientId, parentId, limit, offset]
+    : [clientId, limit, offset];
+  const limitIdx = parentId ? "$3" : "$2";
+  const offsetIdx = parentId ? "$4" : "$3";
+
+  const photos = await query<Photo>(
+    `SELECT
+       p.id,
+       p.thumbnail_url, p.preview_url, p.original_url, p.original_key,
+       p.filename, p.width, p.height,
+       COALESCE(pi.is_liked, false)    AS is_liked,
+       COALESCE(pi.is_selected, false) AS is_selected
+     FROM photos p
+     INNER JOIN client_photo_access cpa ON cpa.photo_id = p.id AND cpa.client_id = $1
+     LEFT JOIN photo_interactions pi    ON pi.photo_id = p.id AND pi.client_id = $1
+     WHERE ${albumFilter}
+     ORDER BY p.created_at DESC
+     LIMIT ${limitIdx} OFFSET ${offsetIdx}`,
+    photoParams
+  );
+
+  const [{ count }] = await query<{ count: string }>(
+    `SELECT COUNT(*) FROM photos p
+     INNER JOIN client_photo_access cpa ON cpa.photo_id = p.id AND cpa.client_id = $1
+     WHERE ${albumFilter}`,
+    parentId ? [clientId, parentId] : [clientId]
+  );
+
+  return res.json({
+    current,
+    breadcrumb,
+    folders,
     photos,
     pagination: {
       page,
@@ -140,7 +244,7 @@ router.post("/photos/:id/select", async (req: Request, res: Response) => {
   return res.json({ is_selected: isSelected });
 });
 
-// GET /api/gallery/download/:id  – presigned URL for a single photo
+// GET /api/gallery/download/:id
 router.get("/download/:id", async (req: Request, res: Response) => {
   const clientId = req.user!.userId;
   const photoId = req.params.id;
@@ -158,7 +262,7 @@ router.get("/download/:id", async (req: Request, res: Response) => {
   return res.json({ url, filename: photo.filename });
 });
 
-// POST /api/gallery/download/bulk  – ZIP of all selected photos
+// POST /api/gallery/download/bulk
 router.post("/download/bulk", async (req: Request, res: Response) => {
   const clientId = req.user!.userId;
   const { photoIds } = req.body as { photoIds?: string[] };

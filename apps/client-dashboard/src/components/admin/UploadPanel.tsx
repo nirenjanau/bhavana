@@ -81,6 +81,7 @@ export default function UploadPanel({ token }: Props) {
       try {
         const formData = new FormData();
         formData.append("photos", item.file);
+        formData.append("client_id", selectedClientId);
 
         const uploadRes = await fetch(`${API_URL}/api/admin/photos/upload`, {
           method: "POST",
@@ -88,33 +89,31 @@ export default function UploadPanel({ token }: Props) {
           body: formData,
         });
 
-        if (!uploadRes.ok) throw new Error("Upload failed");
+        if (!uploadRes.ok) {
+          const err = await uploadRes.json().catch(() => ({}));
+          throw new Error(err.error ?? "Upload failed");
+        }
 
-        const { uploaded } = await uploadRes.json() as {
-          uploaded: Array<{ id: string; error?: string }>;
+        const body = (await uploadRes.json()) as {
+          uploaded: Array<{ id: string }>;
+          errors?: Array<{ filename: string; error: string }>;
         };
-
-        const photoId = uploaded[0]?.id;
-        if (!photoId) throw new Error("No photo ID returned");
-
-        await fetch(`${API_URL}/api/admin/photos/assign`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ client_id: selectedClientId, photo_ids: [photoId] }),
-        });
+        if (body.errors && body.errors.length > 0) {
+          throw new Error(body.errors[0].error);
+        }
+        if (!body.uploaded[0]?.id) throw new Error("No photo ID returned");
 
         setItems((prev) =>
           prev.map((it, idx) =>
             idx === itemIndex ? { ...it, status: "done" } : it
           )
         );
-      } catch {
+      } catch (err) {
         setItems((prev) =>
           prev.map((it, idx) =>
-            idx === itemIndex ? { ...it, status: "error", error: "Upload failed" } : it
+            idx === itemIndex
+              ? { ...it, status: "error", error: err instanceof Error ? err.message : "Upload failed" }
+              : it
           )
         );
       }

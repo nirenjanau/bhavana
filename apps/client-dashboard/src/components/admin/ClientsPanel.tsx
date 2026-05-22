@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { Plus, UserCheck, UserX, Eye } from "lucide-react";
 import toast from "react-hot-toast";
 import type { Client } from "@/types";
+import { formatBytes } from "@/lib/api";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
@@ -29,7 +30,13 @@ export default function ClientsPanel({ token }: Props) {
     e.preventDefault();
     setCreating(true);
     const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form));
+    const raw = Object.fromEntries(new FormData(form)) as Record<string, string>;
+    const data = {
+      name: raw.name,
+      email: raw.email,
+      password: raw.password,
+      storage_quota_gb: raw.storage_quota_gb ? parseInt(raw.storage_quota_gb, 10) : undefined,
+    };
 
     try {
       const res = await fetch(`${API_URL}/api/admin/clients`, {
@@ -126,7 +133,24 @@ export default function ClientsPanel({ token }: Props) {
                 placeholder="Min. 8 characters"
               />
             </div>
-            <div className="flex items-end gap-3">
+            <div>
+              <label className="block text-xs tracking-widest uppercase text-stone-400 mb-2">
+                Storage Quota (GB)
+              </label>
+              <input
+                name="storage_quota_gb"
+                type="number"
+                min="1"
+                max="2000"
+                defaultValue={30}
+                className="w-full border border-stone-200 px-3 py-2.5 text-sm focus:outline-none focus:border-stone-900 transition-colors"
+                placeholder="30"
+              />
+              <p className="text-stone-400 text-xs mt-1">
+                ~100 photos per GB at 10 MP. Default 30 GB ≈ 3,000 photos.
+              </p>
+            </div>
+            <div className="flex items-end gap-3 sm:col-span-2">
               <button
                 type="submit"
                 disabled={creating}
@@ -175,6 +199,9 @@ export default function ClientsPanel({ token }: Props) {
                 <th className="text-left px-5 py-3 text-xs tracking-widest uppercase text-stone-400 font-normal hidden md:table-cell">
                   Selected
                 </th>
+                <th className="text-left px-5 py-3 text-xs tracking-widest uppercase text-stone-400 font-normal hidden lg:table-cell">
+                  Storage
+                </th>
                 <th className="text-left px-5 py-3 text-xs tracking-widest uppercase text-stone-400 font-normal">
                   Status
                 </th>
@@ -193,6 +220,12 @@ export default function ClientsPanel({ token }: Props) {
                   </td>
                   <td className="px-5 py-4 hidden md:table-cell text-stone-600">
                     {client.selected_photos}
+                  </td>
+                  <td className="px-5 py-4 hidden lg:table-cell">
+                    <StorageCell
+                      used={Number(client.storage_used_bytes ?? 0)}
+                      quota={Number(client.storage_quota_bytes ?? 0)}
+                    />
                   </td>
                   <td className="px-5 py-4">
                     <span
@@ -229,6 +262,21 @@ export default function ClientsPanel({ token }: Props) {
           </table>
         </div>
       )}
+    </div>
+  );
+}
+
+function StorageCell({ used, quota }: { used: number; quota: number }) {
+  const pct = quota > 0 ? Math.min(100, Math.round((used / quota) * 100)) : 0;
+  const tone = pct > 90 ? "bg-red-500" : pct > 75 ? "bg-amber-500" : "bg-stone-900";
+  return (
+    <div className="w-40">
+      <div className="h-1.5 bg-stone-100 rounded overflow-hidden">
+        <div className={`h-full ${tone}`} style={{ width: `${pct}%` }} />
+      </div>
+      <p className="text-stone-500 text-xs mt-1">
+        {formatBytes(used)} / {formatBytes(quota)}
+      </p>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import WeddingHighlights from "@/components/sections/WeddingHighlights";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -22,6 +23,7 @@ const categories = [
   "Temple Wedding",
   "Photoshoot",
   "Dance",
+  "Film",
 ] as const;
 
 const allPhotos: PortfolioPhoto[] = [
@@ -487,46 +489,51 @@ export default function PortfolioPage({ searchParams }: PortfolioPageProps) {
         </div>
       </div>
 
-      {/* Masonry grid: natural image sizes for dynamic layout */}
-      <div className="container-wide py-12 md:py-16">
-        <div
-          className={
-            activeCategory === "Dance"
-              ? "columns-1 gap-x-4 sm:columns-2 md:columns-3 xl:columns-4"
-              : activeCategory === "Wedding"
-              ? "columns-1 gap-x-4 sm:columns-2 md:columns-2 lg:columns-3"
-              : "columns-1 gap-x-4 sm:columns-2 lg:columns-3"
-          }
-        >
-          {filteredPhotos.map((photo) => (
-            <div
-              key={photo.src}
-              className="break-inside-avoid mb-4 relative group overflow-hidden rounded-sm bg-stone-200/60 shadow-sm ring-1 ring-stone-200/80"
-            >
-              <Image
-                src={photo.src}
-                alt={photo.title}
-                width={photo.width ?? 768}
-                height={photo.height ?? 1024}
-                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes={
-                  activeCategory === "Dance"
-                    ? "(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                    : activeCategory === "Wedding"
-                    ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                }
-              />
-              <div className="pointer-events-none absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/40 transition-all duration-300 flex items-end">
-                <div className="p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none">
-                  <p className="text-white font-serif text-xl italic">{photo.title}</p>
-                  <p className="text-white/60 text-xs tracking-widest uppercase mt-1">{photo.category}</p>
+      {/* Film tab — video highlights */}
+      {activeCategory === "Film" ? (
+        <WeddingHighlights />
+      ) : (
+        /* Masonry grid: natural image sizes for dynamic layout */
+        <div className="container-wide py-12 md:py-16">
+          <div
+            className={
+              activeCategory === "Dance"
+                ? "columns-1 gap-x-4 sm:columns-2 md:columns-3 xl:columns-4"
+                : activeCategory === "Wedding"
+                ? "columns-1 gap-x-4 sm:columns-2 md:columns-2 lg:columns-3"
+                : "columns-1 gap-x-4 sm:columns-2 lg:columns-3"
+            }
+          >
+            {filteredPhotos.map((photo) => (
+              <div
+                key={photo.src}
+                className="break-inside-avoid mb-4 relative group overflow-hidden rounded-sm bg-stone-200/60 shadow-sm ring-1 ring-stone-200/80"
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.title}
+                  width={photo.width ?? 768}
+                  height={photo.height ?? 1024}
+                  className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes={
+                    activeCategory === "Dance"
+                      ? "(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                      : activeCategory === "Wedding"
+                      ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  }
+                />
+                <div className="pointer-events-none absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/40 transition-all duration-300 flex items-end">
+                  <div className="p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none">
+                    <p className="text-white font-serif text-xl italic">{photo.title}</p>
+                    <p className="text-white/60 text-xs tracking-widest uppercase mt-1">{photo.category}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
