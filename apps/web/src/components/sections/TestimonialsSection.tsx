@@ -1,21 +1,21 @@
 const testimonials = [
   {
     quote:
-      "Bhavana Studio didn't just photograph our wedding — they documented the feeling of the day in a way that still gives us goosebumps every time we look at the album.",
-    name: "Priya & Rahul",
-    event: "Wedding, Leela Palace Bangalore",
+      "Bhavana studio captured the raw emotion in our eyes, the natural moments of pure bliss plus all the magic in between. Their professionalism was outstanding and the passion definitely noticed! The feedback we received for our pre-wedding story/video has been amazing. All because of the team. You guys were an absolute joy to work with! What I particularly loved was the way they managed to keep the shoot casual and natural yet still guide us as to what to do to make the best shots. We didn't feel staged or posed in any way, and the photos we received reflected this. I would definitely recommend them to my friends.",
+    name: "Aparna & Adithya",
+    event: "Pre-wedding & Photography",
   },
   {
     quote:
-      "The pre-wedding shoot was so comfortable and natural. We forgot the camera was even there. The results were beyond anything we imagined.",
-    name: "Arjun & Meera",
-    event: "Pre-wedding, Coorg",
+      "Very professional yet friendly photographers from Bhavana Studios joined us during the wedding of Lakshmi and Karthik on 8th May. They ensured to gel in with the crowd and captured moments which will be treasured for a lifetime! Will reference Mr Unni and Bhavana Studio for any future work without any doubt. All the best to the talented photographers at Bhavana!",
+    name: "Lekshmi Priya.K",
+    event: "Wedding — Lakshmi & Karthik, 8 May",
   },
   {
     quote:
-      "Our family portraits look like they belong in a magazine. Truly world-class photography that we will treasure forever.",
-    name: "The Krishnamurthy Family",
-    event: "Family Portrait Session",
+      "A really good experience. Unniettan and his team at Bhavana studio will do the work entrusted in atmost responsible and customer friendly way within your budget. The album which they made us was really awesome. Will surely recommend to contact them for your photography/videography requirements.",
+    name: "Satheesh N Kaimal",
+    event: "Photography & Videography",
   },
 ];
 
