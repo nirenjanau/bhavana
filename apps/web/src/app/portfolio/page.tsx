@@ -461,25 +461,25 @@ export default function PortfolioPage({ searchParams }: PortfolioPageProps) {
   return (
     <>
       {/* Hero */}
-      <div className="pt-32 pb-16 bg-stone-50">
+      <div className="pt-24 md:pt-32 pb-12 md:pb-16 bg-stone-50">
         <div className="container-wide">
-          <p className="text-xs tracking-ultra-wide uppercase text-stone-400 mb-4">Our Work</p>
-          <h1 className="text-display text-6xl md:text-8xl text-stone-900">Portfolio</h1>
+          <p className="text-xs tracking-ultra-wide uppercase text-stone-400 mb-3 md:mb-4">Our Work</p>
+          <h1 className="text-display text-5xl md:text-7xl lg:text-8xl text-stone-900 leading-tight">Portfolio</h1>
         </div>
       </div>
 
       {/* Filter */}
-      <div className="sticky top-16 md:top-20 z-30 bg-stone-50/95 backdrop-blur border-b border-stone-200">
+      <div className="sticky top-14 md:top-20 z-30 bg-stone-50/95 backdrop-blur border-b border-stone-200">
         <div className="container-wide">
-          <div className="flex gap-6 overflow-x-auto py-4 scrollbar-hide">
+          <div className="flex gap-5 md:gap-6 overflow-x-auto py-4 scrollbar-hide">
             {categories.map((cat) => (
               <Link
                 key={cat}
                 href={cat === "All" ? "/portfolio" : `/portfolio?category=${encodeURIComponent(cat)}`}
-                className={`text-xs tracking-widest uppercase whitespace-nowrap transition-colors pb-1 border-b ${
+                className={`text-xs tracking-widest uppercase whitespace-nowrap transition-colors pb-1.5 border-b-2 ${
                   activeCategory === cat
-                    ? "text-stone-900 border-stone-900"
-                    : "text-stone-500 border-transparent hover:text-stone-900 hover:border-stone-900"
+                    ? "text-stone-900 border-stone-900 font-medium"
+                    : "text-stone-500 border-transparent hover:text-stone-900 hover:border-stone-300"
                 }`}
               >
                 {cat}
@@ -494,20 +494,20 @@ export default function PortfolioPage({ searchParams }: PortfolioPageProps) {
         <WeddingHighlights />
       ) : (
         /* Masonry grid: natural image sizes for dynamic layout */
-        <div className="container-wide py-12 md:py-16">
+        <div className="container-wide py-8 md:py-12 lg:py-16">
           <div
             className={
               activeCategory === "Dance"
-                ? "columns-1 gap-x-4 sm:columns-2 md:columns-3 xl:columns-4"
+                ? "columns-1 gap-x-3 sm:columns-2 md:columns-3 xl:columns-4 md:gap-x-4"
                 : activeCategory === "Wedding"
-                ? "columns-1 gap-x-4 sm:columns-2 md:columns-2 lg:columns-3"
-                : "columns-1 gap-x-4 sm:columns-2 lg:columns-3"
+                ? "columns-1 gap-x-3 sm:columns-2 md:columns-2 lg:columns-3 md:gap-x-4"
+                : "columns-1 gap-x-3 sm:columns-2 lg:columns-3 md:gap-x-4"
             }
           >
             {filteredPhotos.map((photo) => (
               <div
                 key={photo.src}
-                className="break-inside-avoid mb-4 relative group overflow-hidden rounded-sm bg-stone-200/60 shadow-sm ring-1 ring-stone-200/80"
+                className="break-inside-avoid mb-3 md:mb-4 relative group overflow-hidden rounded-sm bg-stone-200/60 shadow-sm ring-1 ring-stone-200/80"
               >
                 <Image
                   src={photo.src}
@@ -524,8 +524,8 @@ export default function PortfolioPage({ searchParams }: PortfolioPageProps) {
                   }
                 />
                 <div className="pointer-events-none absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/40 transition-all duration-300 flex items-end">
-                  <div className="p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none">
-                    <p className="text-white font-serif text-xl italic">{photo.title}</p>
+                  <div className="p-4 md:p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none">
+                    <p className="text-white font-serif text-lg md:text-xl italic leading-tight">{photo.title}</p>
                     <p className="text-white/60 text-xs tracking-widest uppercase mt-1">{photo.category}</p>
                   </div>
                 </div>

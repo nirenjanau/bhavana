@@ -29,28 +29,28 @@ export default function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative h-full flex flex-col justify-end pb-16 md:pb-24 container-wide">
+      <div className="relative h-full flex flex-col justify-end pb-12 md:pb-20 lg:pb-24 container-wide">
         <div className="max-w-3xl">
-          <p className="text-white/60 text-xs tracking-ultra-wide uppercase mb-6 animate-fade-up">
+          <p className="text-white/60 text-xs tracking-ultra-wide uppercase mb-4 md:mb-6 animate-fade-up">
             Fine Art Photography · Guruvayoor
           </p>
-          <h1 className="text-display text-white text-6xl md:text-8xl lg:text-9xl mb-8 animate-fade-up">
+          <h1 className="text-display text-white text-5xl md:text-7xl lg:text-9xl mb-6 md:mb-8 leading-[0.95] animate-fade-up">
             Capturing
             <br />
             <em className="italic">Timeless</em>
             <br />
             Moments
           </h1>
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-up">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-4 animate-fade-up">
             <Link
               href="/portfolio"
-              className="inline-block border border-white text-white text-xs tracking-widest uppercase px-8 py-4 hover:bg-white hover:text-stone-900 transition-all duration-300"
+              className="inline-block text-center border border-white text-white text-xs tracking-widest uppercase px-6 py-4 md:px-8 hover:bg-white hover:text-stone-900 transition-all duration-300"
             >
               View Portfolio
             </Link>
             <Link
               href="/contact"
-              className="inline-block bg-white text-stone-900 text-xs tracking-widest uppercase px-8 py-4 hover:bg-stone-100 transition-all duration-300"
+              className="inline-block text-center bg-white text-stone-900 text-xs tracking-widest uppercase px-6 py-4 md:px-8 hover:bg-stone-100 transition-all duration-300"
             >
               Book a Session
             </Link>
@@ -58,7 +58,7 @@ export default function HeroSection() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 right-8 flex flex-col items-center gap-2">
+        <div className="hidden md:flex absolute bottom-8 right-8 flex-col items-center gap-2">
           <span className="text-white/40 text-xs tracking-widest uppercase rotate-90 origin-center">
             Scroll
           </span>

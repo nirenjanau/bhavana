@@ -25,18 +25,27 @@ export default function Navbar() {
   const isHome = pathname === "/";
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled || !isHome
-          ? "bg-stone-50/95 backdrop-blur-sm border-b border-stone-200"
-          : "bg-transparent"
-      }`}
-    >
-      <nav className="container-wide flex items-center justify-between h-16 md:h-20">
+    <>
+      {/* Mobile menu backdrop overlay */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 bg-stone-950/20 z-40 md:hidden"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled || !isHome
+            ? "bg-stone-50/95 backdrop-blur-sm border-b border-stone-200"
+            : "bg-transparent"
+        }`}
+      >
+        <nav className="container-wide flex items-center justify-between h-14 md:h-20">
         {/* Logo */}
         <Link
           href="/"
-          className={`font-serif text-xl md:text-2xl font-light tracking-widest uppercase transition-colors ${
+          className={`font-serif text-lg md:text-2xl font-light tracking-widest uppercase transition-colors ${
             scrolled || !isHome ? "text-stone-900" : "text-white"
           }`}
         >
@@ -81,56 +90,55 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2"
+          className="md:hidden p-3 -mr-3"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
           <span
-            className={`block w-6 h-px mb-1.5 transition-all ${
+            className={`block w-5 h-0.5 mb-1 transition-all ${
               scrolled || !isHome ? "bg-stone-900" : "bg-white"
-            } ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
+            } ${menuOpen ? "rotate-45 translate-y-1.5" : ""}`}
           />
           <span
-            className={`block w-6 h-px mb-1.5 transition-all ${
+            className={`block w-5 h-0.5 mb-1 transition-all ${
               scrolled || !isHome ? "bg-stone-900" : "bg-white"
             } ${menuOpen ? "opacity-0" : ""}`}
           />
           <span
-            className={`block w-6 h-px transition-all ${
+            className={`block w-5 h-0.5 transition-all ${
               scrolled || !isHome ? "bg-stone-900" : "bg-white"
-            } ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+            } ${menuOpen ? "-rotate-45 -translate-y-1.5" : ""}`}
           />
         </button>
       </nav>
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 bg-stone-50 border-t border-stone-200 ${
-          menuOpen ? "max-h-96" : "max-h-0"
+        className={`md:hidden overflow-hidden transition-all duration-300 bg-stone-50 ${
+          menuOpen ? "max-h-96 border-t border-stone-200" : "max-h-0"
         }`}
       >
-        <ul className="container-wide py-6 space-y-4">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="block text-sm tracking-widest uppercase text-stone-700 hover:text-stone-900"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-          {/* <li>
-            <a
-              href="http://localhost:3001"
-              className="block text-sm tracking-widest uppercase text-stone-700 hover:text-stone-900"
-            >
-              Client Login
-            </a>
-          </li> */}
-        </ul>
+        <nav className="py-8 px-5">
+          <ul className="space-y-6">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className={`block text-base tracking-wider uppercase transition-colors ${
+                    pathname === link.href
+                      ? "text-stone-900 font-medium"
+                      : "text-stone-600 hover:text-stone-900"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </header>
+    </>
   );
 }

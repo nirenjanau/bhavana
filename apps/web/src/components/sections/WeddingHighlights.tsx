@@ -152,7 +152,7 @@ function FeaturedFilm({ film }: { film: HighlightVideo }) {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+    <div className="grid lg:grid-cols-12 gap-6 md:gap-10 lg:gap-16 items-center">
       <div className="lg:col-span-7">
         {playing ? (
           <VideoEmbed youtubeId={film.youtubeId} />
@@ -166,24 +166,24 @@ function FeaturedFilm({ film }: { film: HighlightVideo }) {
         )}
       </div>
       <div className="lg:col-span-5 flex flex-col justify-center">
-        <span className="text-display text-stone-300 text-7xl leading-none select-none mb-4 block">
+        <span className="text-display text-stone-300 text-5xl md:text-7xl leading-none select-none mb-3 md:mb-4 block">
           01
         </span>
-        <p className="text-xs tracking-ultra-wide uppercase text-stone-400 mb-3">
+        <p className="text-xs tracking-ultra-wide uppercase text-stone-400 mb-2 md:mb-3">
           Featured Film
         </p>
-        <h3 className="text-display text-4xl md:text-5xl text-stone-900 leading-tight mb-4">
+        <h3 className="text-display text-3xl md:text-4xl lg:text-5xl text-stone-900 leading-tight mb-3 md:mb-4">
           {film.title}
         </h3>
-        <p className="text-xs tracking-widest uppercase text-stone-400 mb-6">
+        <p className="text-xs tracking-widest uppercase text-stone-400 mb-4 md:mb-6">
           {film.subtitle}
         </p>
         {film.description && (
-          <p className="text-stone-500 leading-relaxed text-sm mb-8 max-w-sm">
+          <p className="text-stone-500 leading-relaxed text-sm mb-6 md:mb-8 max-w-sm">
             {film.description}
           </p>
         )}
-        <div className="flex gap-6 border-t border-stone-200 pt-6">
+        <div className="flex gap-6 border-t border-stone-200 pt-4 md:pt-6">
           {film.location && (
             <div>
               <p className="text-xs tracking-widest uppercase text-stone-400 mb-1">
@@ -220,12 +220,12 @@ function FilmCard({
           onPlay={() => setPlaying(true)}
         />
       )}
-      <div className="mt-4 flex items-start gap-4">
-        <span className="text-display text-stone-300 text-2xl leading-none select-none shrink-0 mt-1">
+      <div className="mt-3 md:mt-4 flex items-start gap-3 md:gap-4">
+        <span className="text-display text-stone-300 text-xl md:text-2xl leading-none select-none shrink-0 mt-0.5 md:mt-1">
           {num}
         </span>
         <div>
-          <h4 className="font-serif text-xl font-light text-stone-900 italic">
+          <h4 className="font-serif text-lg md:text-xl font-light text-stone-900 italic leading-tight">
             {film.title}
           </h4>
           <p className="text-xs tracking-widest uppercase text-stone-400 mt-1">
@@ -242,16 +242,16 @@ function FilmCard({
 
 export default function WeddingHighlights() {
   return (
-    <section className="py-24 md:py-36 bg-stone-100">
+    <section className="py-16 md:py-24 lg:py-36 bg-stone-100">
       <div className="container-wide">
 
         {/* Section header */}
-        <div className="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div className="mb-12 md:mb-16 lg:mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-4 md:gap-6">
           <div>
-            <p className="text-xs tracking-ultra-wide uppercase text-stone-400 mb-4">
+            <p className="text-xs tracking-ultra-wide uppercase text-stone-400 mb-3 md:mb-4">
               Film
             </p>
-            <h2 className="text-display text-5xl md:text-6xl text-stone-900">
+            <h2 className="text-display text-4xl md:text-5xl lg:text-6xl text-stone-900 leading-tight">
               Wedding Highlights
             </h2>
           </div>
@@ -265,10 +265,10 @@ export default function WeddingHighlights() {
         <FeaturedFilm film={featuredFilm} />
 
         {/* Divider */}
-        <div className="border-t border-stone-200 my-16 md:my-20" />
+        <div className="border-t border-stone-200 my-12 md:my-16 lg:my-20" />
 
         {/* More films */}
-        <div className="flex items-end justify-between mb-10">
+        <div className="flex items-center justify-between mb-8 md:mb-10 gap-4">
           <p className="text-xs tracking-ultra-wide uppercase text-stone-400">
             More Films
           </p>
@@ -276,13 +276,13 @@ export default function WeddingHighlights() {
             href={CHANNEL_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs tracking-widest uppercase text-stone-500 border-b border-stone-300 pb-0.5 hover:text-stone-900 hover:border-stone-900 transition-colors duration-300"
+            className="text-xs tracking-widest uppercase text-stone-500 border-b border-stone-300 pb-0.5 hover:text-stone-900 hover:border-stone-900 transition-colors duration-300 whitespace-nowrap"
           >
-            View All on YouTube →
+            View All →
           </a>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
           {highlightFilms.map((film, i) => (
             <FilmCard key={film.youtubeId} film={film} index={i} />
           ))}

@@ -41,13 +41,25 @@ body {
 .container-narrow {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .container-narrow {
+    padding: 0 2rem;
+  }
 }
 
 .container-wide {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .container-wide {
+    padding: 0 2rem;
+  }
 }
 
 /* Smooth image loading */
