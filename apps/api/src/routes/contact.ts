@@ -10,7 +10,7 @@ router.post(
   [
     body("name").trim().notEmpty(),
     body("email").isEmail().normalizeEmail(),
-    body("message").trim().isLength({ min: 10 }),
+    body("message").trim().notEmpty(),
   ],
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
