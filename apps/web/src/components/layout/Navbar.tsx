@@ -65,8 +65,8 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Client login CTA */}
-        <div className="hidden md:block">
+        {/* Client login CTA — hidden for now */}
+        {/* <div className="hidden md:block">
           <a
             href="http://localhost:3001"
             className={`text-xs tracking-widest uppercase font-medium border px-5 py-2.5 transition-all ${
@@ -77,7 +77,7 @@ export default function Navbar() {
           >
             Client Login
           </a>
-        </div>
+        </div> */}
 
         {/* Mobile hamburger */}
         <button
@@ -121,14 +121,14 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
-          <li>
+          {/* <li>
             <a
               href="http://localhost:3001"
               className="block text-sm tracking-widest uppercase text-stone-700 hover:text-stone-900"
             >
               Client Login
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
     </header>
