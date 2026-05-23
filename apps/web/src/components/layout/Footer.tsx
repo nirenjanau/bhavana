@@ -71,7 +71,9 @@ export default function Footer() {
               {["Instagram"].map((s) => (
                 <a
                   key={s}
-                  href="#"
+                  href="https://www.instagram.com/bhavanastudio_guruvayur/?hl=en"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-xs tracking-widest text-stone-500 hover:text-white transition-colors"
                 >
                   {s}
