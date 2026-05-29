@@ -83,16 +83,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-stone-800 pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
+        <div className="border-t border-stone-800 pt-6">
           <p className="text-xs text-stone-600">
             © {year} Bhavana Studio. All rights reserved.
           </p>
-          <a
-            href="http://localhost:3001"
-            className="text-xs tracking-widest uppercase text-stone-500 hover:text-white transition-colors"
-          >
-            Client Portal →
-          </a>
         </div>
       </div>
     </footer>
