@@ -16,6 +16,10 @@ export const metadata: Metadata = {
     url: "https://bhavanastudio.com",
     siteName: "Bhavana Studio",
   },
+  icons: {
+    icon: "/Bhavana%20Name%20Adress%20copy00.png",
+    apple: "/Bhavana%20Name%20Adress%20copy00.png",
+  },
 };
 
 export default function RootLayout({
