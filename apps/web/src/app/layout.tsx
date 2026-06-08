@@ -6,7 +6,7 @@ import Footer from "@/components/layout/Footer";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bhavanastudio.com";
 
 const siteDescription =
-  "Bhavana Studio captures life's most precious moments with an editorial, cinematic approach. Based in Bangalore, available worldwide.";
+  "Bhavana Studio captures life's most precious moments with an editorial, cinematic approach. Based in Guruvayoor, available worldwide.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: "/og-image.png",
+        url: "/hero-temple-wedding-night.jpg",
         width: 1200,
         height: 630,
         alt: "Bhavana Studio",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Bhavana Studio — Fine Art Photography",
     description: siteDescription,
-    images: ["/og-image.png"],
+    images: ["/hero-temple-wedding-night.jpg"],
   },
   icons: {
     icon: "/Bhavana%20Name%20Adress%20copy00.png",

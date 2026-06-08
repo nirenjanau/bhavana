@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import { Providers } from "./providers";
 
 const siteUrl = process.env.NEXTAUTH_URL ?? "https://www.bhavanastudio.com";
 
-const title = "Client Gallery | Bhavana Studio";
-const description = "Access your private photo gallery from Bhavana Studio.";
+const title = "Client Gallery Portal | Bhavana Studio";
+const description =
+  "Sign in to your private Bhavana Studio gallery — view, like, and select your photos.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -13,7 +12,7 @@ export const metadata: Metadata = {
   description,
   openGraph: {
     type: "website",
-    url: siteUrl,
+    url: `${siteUrl}/login`,
     siteName: "Bhavana Studio",
     title,
     description,
@@ -34,12 +33,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body>
-        <Providers>{children}</Providers>
-      </body>
-    </html>
-  );
+export default function LoginLayout({ children }: { children: React.ReactNode }) {
+  return children;
 }
