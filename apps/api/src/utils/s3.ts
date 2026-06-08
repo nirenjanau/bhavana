@@ -6,14 +6,32 @@ import {
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
-export const s3 = new S3Client({
-  endpoint: process.env.S3_ENDPOINT,
+const clientConfig = {
   region: process.env.S3_REGION ?? "us-east-1",
   credentials: {
     accessKeyId: process.env.S3_ACCESS_KEY ?? "",
     secretAccessKey: process.env.S3_SECRET_KEY ?? "",
   },
   forcePathStyle: true,
+};
+
+// Internal client — used for uploads/deletes inside Docker network.
+export const s3 = new S3Client({
+  ...clientConfig,
+  endpoint: process.env.S3_ENDPOINT,
+});
+
+// Public client — used only for presigning download URLs.
+// Signs with the browser-reachable origin so the HMAC signature matches
+// the host the browser actually connects to. Rewriting the host after
+// signing breaks the signature (SignatureDoesNotMatch).
+const publicEndpoint = process.env.S3_PUBLIC_URL
+  ? new URL(process.env.S3_PUBLIC_URL).origin
+  : process.env.S3_ENDPOINT;
+
+const s3Public = new S3Client({
+  ...clientConfig,
+  endpoint: publicEndpoint,
 });
 
 const BUCKET = process.env.S3_BUCKET_NAME ?? "bhavana-photos";
@@ -44,7 +62,7 @@ export async function getPresignedDownloadUrl(
   expiresIn = 3600
 ): Promise<string> {
   return getSignedUrl(
-    s3,
+    s3Public,
     new GetObjectCommand({ Bucket: BUCKET, Key: key }),
     { expiresIn }
   );

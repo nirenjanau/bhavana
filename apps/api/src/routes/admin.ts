@@ -28,7 +28,8 @@ router.get("/clients", async (_req: Request, res: Response) => {
        u.storage_quota_bytes,
        u.storage_used_bytes,
        COUNT(DISTINCT cpa.photo_id)                                             AS total_photos,
-       COUNT(DISTINCT pi.photo_id) FILTER (WHERE pi.is_selected = true)         AS selected_photos
+       COUNT(DISTINCT pi.photo_id) FILTER (WHERE pi.is_selected = true)         AS selected_photos,
+       COUNT(DISTINCT pi.photo_id) FILTER (WHERE pi.is_liked = true)            AS liked_photos
      FROM users u
      LEFT JOIN client_photo_access cpa ON cpa.client_id = u.id
      LEFT JOIN photo_interactions pi   ON pi.client_id = u.id
@@ -39,11 +40,33 @@ router.get("/clients", async (_req: Request, res: Response) => {
   return res.json(clients);
 });
 
+// DELETE /api/admin/clients/:id  — permanently delete a client + all their photos & folders
+router.delete("/clients/:id", async (req: Request, res: Response) => {
+  const exists = await queryOne("SELECT id FROM users WHERE id = $1 AND role = 'client'", [req.params.id]);
+  if (!exists) return res.status(404).json({ error: "Client not found" });
+  // CASCADE on FK handles albums, photos, interactions, and access rows
+  await query("DELETE FROM users WHERE id = $1", [req.params.id]);
+  return res.json({ deleted: true });
+});
+
+// POST /api/admin/clients/:id/password  — reset a client's password
+router.post("/clients/:id/password", async (req: Request, res: Response) => {
+  const { password } = req.body as { password?: string };
+  if (!password || password.length < 8) {
+    return res.status(400).json({ error: "Password must be at least 8 characters" });
+  }
+  const exists = await queryOne("SELECT id FROM users WHERE id = $1 AND role = 'client'", [req.params.id]);
+  if (!exists) return res.status(404).json({ error: "Client not found" });
+  const password_hash = await bcrypt.hash(password, 12);
+  await query("UPDATE users SET password_hash = $1 WHERE id = $2", [password_hash, req.params.id]);
+  return res.json({ ok: true });
+});
+
 // POST /api/admin/clients
 router.post(
   "/clients",
   [
-    body("email").isEmail().normalizeEmail(),
+    body("email").isEmail().toLowerCase().trim(),
     body("name").trim().notEmpty(),
     body("password").isLength({ min: 8 }),
     body("storage_quota_gb").optional().isInt({ min: 1, max: 10000 }),
@@ -549,6 +572,22 @@ router.get("/selections", async (_req: Request, res: Response) => {
      ORDER BY u.name, pi.updated_at DESC`
   );
   return res.json(selections);
+});
+
+// GET /api/admin/likes  – all client liked photos
+router.get("/likes", async (_req: Request, res: Response) => {
+  const likes = await query(
+    `SELECT
+       u.id AS client_id, u.name AS client_name, u.email AS client_email,
+       p.id AS photo_id, p.filename,
+       pi.updated_at AS liked_at
+     FROM photo_interactions pi
+     INNER JOIN users u  ON u.id = pi.client_id
+     INNER JOIN photos p ON p.id = pi.photo_id
+     WHERE pi.is_liked = true
+     ORDER BY u.name, pi.updated_at DESC`
+  );
+  return res.json(likes);
 });
 
 // POST /api/admin/portfolio

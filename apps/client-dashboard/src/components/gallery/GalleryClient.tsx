@@ -5,10 +5,11 @@ import useSWR from "swr";
 import { signOut } from "next-auth/react";
 import { Download, Heart, CheckSquare, LogOut, Grid2X2, Grid3X3, FolderTree } from "lucide-react";
 import toast from "react-hot-toast";
-import type { Filter, GalleryResponse, GalleryStats } from "@/types";
+import type { Filter, GalleryResponse, GalleryStats, Photo } from "@/types";
 import PhotoCard from "./PhotoCard";
+import PhotoLightbox from "./PhotoLightbox";
 import FolderBrowser from "./FolderBrowser";
-import { toggleLike, toggleSelect, bulkDownload } from "@/lib/api";
+import { toggleLike, toggleSelect, bulkDownload, getDownloadUrl } from "@/lib/api";
 
 type View = "folders" | Filter;
 
@@ -32,6 +33,7 @@ export default function GalleryClient({ userName, token }: Props) {
   const [page, setPage] = useState(1);
   const [columns, setColumns] = useState<3 | 4>(4);
   const [downloading, setDownloading] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const filter: Filter = view === "folders" ? "all" : view;
   const flatMode = view !== "folders";
@@ -120,6 +122,22 @@ export default function GalleryClient({ userName, token }: Props) {
       toast.error("Download failed", { id: toastId });
     } finally {
       setDownloading(false);
+    }
+  }, [token]);
+
+  const handleDownload = useCallback(async (photo: Photo) => {
+    try {
+      const { url, filename } = await getDownloadUrl(photo.id, token);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.target = "_blank";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      toast.success("Download started");
+    } catch {
+      toast.error("Download failed");
     }
   }, [token]);
 
@@ -248,6 +266,7 @@ export default function GalleryClient({ userName, token }: Props) {
             token={token}
             folderId={folderId}
             onNavigate={(id) => setFolderId(id)}
+            onStatsChange={mutateStats}
           />
         )}
 
@@ -281,13 +300,14 @@ export default function GalleryClient({ userName, token }: Props) {
                 : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
             }`}
           >
-            {photos.map((photo) => (
+            {photos.map((photo, i) => (
               <PhotoCard
                 key={photo.id}
                 photo={photo}
                 onLike={handleLike}
                 onSelect={handleSelect}
-                token={token}
+                onZoom={() => setLightboxIndex(i)}
+                onDownload={handleDownload}
               />
             ))}
           </div>
@@ -316,6 +336,18 @@ export default function GalleryClient({ userName, token }: Props) {
           </div>
         )}
       </div>
+
+      {lightboxIndex !== null && photos.length > 0 && (
+        <PhotoLightbox
+          photos={photos}
+          currentIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onNavigate={setLightboxIndex}
+          onLike={handleLike}
+          onSelect={handleSelect}
+          onDownload={handleDownload}
+        />
+      )}
     </>
   );
 }

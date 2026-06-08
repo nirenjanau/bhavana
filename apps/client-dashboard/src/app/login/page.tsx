@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { useState, useEffect } from "react";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -10,14 +10,29 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    const urlError = new URLSearchParams(window.location.search).get("error");
+    if (urlError === "CredentialsSignin") {
+      setError("Invalid email or password. Please try again.");
+    } else if (urlError) {
+      setError("Sign in failed. Please try again.");
+    }
+  }, []);
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     setError("");
 
     const form = e.currentTarget;
-    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-    const password = (form.elements.namedItem("password") as HTMLInputElement).value;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
+    const password = (form.elements.namedItem("password") as HTMLInputElement).value.trim();
+
+    if (!email || !password) {
+      setError("Please enter your email and password.");
+      setLoading(false);
+      return;
+    }
 
     const result = await signIn("credentials", {
       email,
@@ -26,11 +41,20 @@ export default function LoginPage() {
     });
 
     if (result?.error) {
-      setError("Invalid email or password. Please try again.");
+      if (result.error === "API_UNREACHABLE") {
+        setError("Cannot reach the server. Make sure the API is running on port 4000.");
+      } else if (result.error === "API_ERROR") {
+        setError("Server error during sign in. Check the API logs and try again.");
+      } else {
+        setError("Invalid email or password. Please try again.");
+      }
       setLoading(false);
-    } else {
-      router.push("/gallery");
+      return;
     }
+
+    const session = await getSession();
+    router.push(session?.user.role === "admin" ? "/admin" : "/gallery");
+    router.refresh();
   }
 
   return (
@@ -38,7 +62,7 @@ export default function LoginPage() {
       {/* Left — image */}
       <div className="hidden lg:block relative">
         <Image
-          src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600"
+          src="/10-1.jpg.jpeg"
           alt="Bhavana Studio"
           fill
           className="object-cover"
@@ -70,7 +94,7 @@ export default function LoginPage() {
             Sign in to your gallery
           </h3>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
             <div>
               <label className="block text-xs tracking-widest uppercase text-stone-400 mb-2">
                 Email address

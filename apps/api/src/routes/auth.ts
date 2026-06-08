@@ -19,7 +19,7 @@ interface User {
 router.post(
   "/login",
   [
-    body("email").isEmail().normalizeEmail(),
+    body("email").isEmail().toLowerCase().trim(),
     body("password").isLength({ min: 6 }),
   ],
   async (req: Request, res: Response) => {

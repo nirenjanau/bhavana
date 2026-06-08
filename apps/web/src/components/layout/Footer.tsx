@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CLIENT_PORTAL_URL } from "@/lib/site";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -29,14 +30,24 @@ export default function Footer() {
                 ["Portfolio", "/portfolio"],
                 // ["About", "/about"],
                 ["Contact", "/contact"],
+                ["Client Login", CLIENT_PORTAL_URL],
               ].map(([label, href]) => (
                 <li key={href}>
-                  <Link
-                    href={href}
-                    className="text-sm text-stone-400 hover:text-white transition-colors"
-                  >
-                    {label}
-                  </Link>
+                  {href.startsWith("http") ? (
+                    <a
+                      href={href}
+                      className="text-sm text-stone-400 hover:text-white transition-colors"
+                    >
+                      {label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={href}
+                      className="text-sm text-stone-400 hover:text-white transition-colors"
+                    >
+                      {label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

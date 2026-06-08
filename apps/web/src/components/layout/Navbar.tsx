@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { CLIENT_PORTAL_URL } from "@/lib/site";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -74,10 +75,9 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Client login CTA — hidden for now */}
-        {/* <div className="hidden md:block">
+        <div className="hidden md:block">
           <a
-            href="http://localhost:3001"
+            href={CLIENT_PORTAL_URL}
             className={`text-xs tracking-widest uppercase font-medium border px-5 py-2.5 transition-all ${
               scrolled || !isHome
                 ? "border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white"
@@ -86,7 +86,7 @@ export default function Navbar() {
           >
             Client Login
           </a>
-        </div> */}
+        </div>
 
         {/* Mobile hamburger */}
         <button
@@ -135,6 +135,15 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
+            <li>
+              <a
+                href={CLIENT_PORTAL_URL}
+                onClick={() => setMenuOpen(false)}
+                className="block text-base tracking-wider uppercase text-stone-600 hover:text-stone-900 transition-colors"
+              >
+                Client Login
+              </a>
+            </li>
           </ul>
         </nav>
       </div>

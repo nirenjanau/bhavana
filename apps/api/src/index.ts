@@ -12,6 +12,7 @@ import galleryRouter from "./routes/gallery";
 import adminRouter from "./routes/admin";
 import portfolioRouter from "./routes/portfolio";
 import contactRouter from "./routes/contact";
+import { ensureAdminUser } from "./db/bootstrap";
 
 const app = express();
 const PORT = process.env.PORT ?? 4000;
@@ -75,8 +76,13 @@ app.use(
   }
 );
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`✓ Bhavana API running on http://localhost:${PORT}`);
+  try {
+    await ensureAdminUser();
+  } catch (err) {
+    console.error("Admin bootstrap failed:", err);
+  }
 });
 
 export default app;

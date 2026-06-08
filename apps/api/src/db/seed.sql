@@ -1,8 +1,8 @@
 -- =============================================================================
 -- Bhavana Studio - Seed Data
--- Passwords are bcrypt hashes:
---   Admin@12345  → $2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBIhfKxAtO9/gm
---   Client@12345 → $2b$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC..og/wu2JFwG8kW3vW
+-- Passwords are bcrypt hashes (cost 12):
+--   Admin@12345  → $2a$12$UflkAh1pvHUltUQuNyC2seOaWAiW0jpegMxVd6w14wAcLJs139wuO
+--   Client@12345 → $2a$12$cXF3D0HWk.YAqJDg50yq2eRwY5La9Msq2yjKpBEkjEJVpvMJZ/oo6
 -- =============================================================================
 
 -- Admin user
@@ -10,7 +10,7 @@ INSERT INTO users (id, email, name, password_hash, role) VALUES
   ('00000000-0000-0000-0000-000000000001',
    'admin@bhavanastudio.com',
    'Bhavana Admin',
-   '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBIhfKxAtO9/gm',
+   '$2a$12$UflkAh1pvHUltUQuNyC2seOaWAiW0jpegMxVd6w14wAcLJs139wuO',
    'admin');
 
 -- Sample clients
@@ -18,17 +18,17 @@ INSERT INTO users (id, email, name, password_hash, role) VALUES
   ('00000000-0000-0000-0000-000000000002',
    'priya@example.com',
    'Priya Sharma',
-   '$2b$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC..og/wu2JFwG8kW3vW',
+   '$2a$12$cXF3D0HWk.YAqJDg50yq2eRwY5La9Msq2yjKpBEkjEJVpvMJZ/oo6',
    'client'),
   ('00000000-0000-0000-0000-000000000003',
    'arjun@example.com',
    'Arjun & Meera',
-   '$2b$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC..og/wu2JFwG8kW3vW',
+   '$2a$12$cXF3D0HWk.YAqJDg50yq2eRwY5La9Msq2yjKpBEkjEJVpvMJZ/oo6',
    'client'),
   ('00000000-0000-0000-0000-000000000004',
    'client@example.com',
    'Sample Client',
-   '$2b$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC..og/wu2JFwG8kW3vW',
+   '$2a$12$cXF3D0HWk.YAqJDg50yq2eRwY5La9Msq2yjKpBEkjEJVpvMJZ/oo6',
    'client');
 
 -- Sample albums

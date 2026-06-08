@@ -110,6 +110,13 @@ export function getClientStorage(token: string, clientId: string) {
   return apiFetch<StorageUsage>(`/api/admin/clients/${clientId}/storage`, token);
 }
 
+export function resetClientPassword(token: string, clientId: string, password: string) {
+  return apiFetch<{ ok: true }>(`/api/admin/clients/${clientId}/password`, token, {
+    method: "POST",
+    body: JSON.stringify({ password }),
+  });
+}
+
 export function updateClient(
   token: string,
   id: string,

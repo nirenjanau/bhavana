@@ -27,6 +27,7 @@ import {
   formatBytes,
   updateClient,
 } from "@/lib/api";
+import { compressImage } from "@/lib/compress";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
@@ -207,8 +208,9 @@ export default function ClientWorkspace({ token, clientId, folderId }: Props) {
       );
 
       try {
+        const compressed = await compressImage(item.file, 2);
         const fd = new FormData();
-        fd.append("photos", item.file);
+        fd.append("photos", compressed);
         fd.append("client_id", clientId);
         if (folderId) fd.append("album_id", folderId);
 
@@ -557,7 +559,7 @@ export default function ClientWorkspace({ token, clientId, folderId }: Props) {
           ) : photosInFolder.length === 0 ? (
             <div className="border border-dashed border-stone-200 bg-white p-8 text-center text-sm text-stone-400">
               <ImageIcon size={24} className="mx-auto mb-3 text-stone-300" />
-              No photos in this folder yet. Use <strong>Upload to this folder</strong> above.
+              No photos in this folder yet. Use <strong>Upload to this folder</strong> above — photos are auto-compressed to 2 MB.
             </div>
           ) : (
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2">
