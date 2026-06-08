@@ -4,12 +4,13 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   max: 20,
   idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
+  connectionTimeoutMillis: 10000,
 });
 
+// Log pool errors but do NOT exit — Neon closes idle connections on the free
+// tier and the pool will reconnect automatically on the next query.
 pool.on("error", (err) => {
-  console.error("Unexpected error on idle client", err);
-  process.exit(-1);
+  console.error("Unexpected error on idle client", err.message);
 });
 
 export default pool;
