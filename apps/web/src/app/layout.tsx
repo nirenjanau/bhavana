@@ -22,6 +22,8 @@ export const metadata: Metadata = {
   },
 };
 
+const maintenance = process.env.MAINTENANCE_MODE === "true";
+
 export default function RootLayout({
   children,
 }: {
@@ -30,9 +32,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
+        {!maintenance && <Navbar />}
         <main>{children}</main>
-        <Footer />
+        {!maintenance && <Footer />}
       </body>
     </html>
   );
