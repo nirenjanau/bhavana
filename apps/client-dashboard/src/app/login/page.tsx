@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import BackToHomeLink from "@/components/BackToHomeLink";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -80,7 +81,10 @@ export default function LoginPage() {
       </div>
 
       {/* Right — form */}
-      <div className="flex items-center justify-center p-8">
+      <div className="flex items-center justify-center p-8 relative">
+        <div className="absolute top-6 left-6 sm:top-8 sm:left-8">
+          <BackToHomeLink />
+        </div>
         <div className="w-full max-w-sm">
           {/* Logo */}
           <div className="mb-10">
