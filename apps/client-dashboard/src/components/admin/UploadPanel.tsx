@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { Upload, X, CheckCircle, AlertCircle, Image as ImageIcon } from "lucide-react";
 import toast from "react-hot-toast";
 import type { Client } from "@/types";
+import { compressImage } from "@/lib/compress";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
@@ -79,8 +80,9 @@ export default function UploadPanel({ token }: Props) {
       );
 
       try {
+        const compressed = await compressImage(item.file, 2);
         const formData = new FormData();
-        formData.append("photos", item.file);
+        formData.append("photos", compressed);
         formData.append("client_id", selectedClientId);
 
         const uploadRes = await fetch(`${API_URL}/api/admin/photos/upload`, {
@@ -125,12 +127,14 @@ export default function UploadPanel({ token }: Props) {
   }
 
   return (
-    <div>
-      <h2 className="text-2xl font-light text-stone-900 mb-8">Upload Photos</h2>
+    <div className="lg:flex lg:flex-col lg:h-[calc(100vh-4rem)] lg:overflow-hidden">
+      <h2 className="text-2xl font-light text-stone-900 mb-6 lg:mb-4 flex-shrink-0">
+        Upload Photos
+      </h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left: config */}
-        <div className="space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 flex-1 min-h-0">
+        {/* Left: config — stays fixed */}
+        <div className="space-y-6 lg:sticky lg:top-0 lg:self-start flex-shrink-0">
           {/* Client selector */}
           <div>
             <label className="block text-xs tracking-widest uppercase text-stone-400 mb-2">
@@ -150,11 +154,22 @@ export default function UploadPanel({ token }: Props) {
             </select>
           </div>
 
-          {/* Upload button */}
+          {/* Upload steps hint */}
+          <div className="text-xs text-stone-500 space-y-1 border border-stone-200 bg-stone-50 p-3">
+            <p className={selectedClientId ? "text-emerald-700" : ""}>
+              {selectedClientId ? "✓" : "1."} Select a client above
+            </p>
+            <p className={items.length > 0 ? "text-emerald-700" : ""}>
+              {items.length > 0 ? "✓" : "2."} Add photos in the drop zone
+            </p>
+            <p>3. Click Upload below</p>
+          </div>
+
+          {/* Upload button — always visible */}
           <button
             onClick={handleUpload}
             disabled={uploading || items.length === 0 || !selectedClientId}
-            className="w-full flex items-center justify-center gap-2 bg-stone-900 text-white text-xs tracking-widest uppercase py-3.5 hover:bg-stone-700 transition-colors disabled:opacity-40"
+            className="w-full flex items-center justify-center gap-2 bg-stone-900 text-white text-xs tracking-widest uppercase py-3.5 hover:bg-stone-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Upload size={14} />
             {uploading
@@ -175,8 +190,8 @@ export default function UploadPanel({ token }: Props) {
           )}
         </div>
 
-        {/* Right: drop zone + previews */}
-        <div className="lg:col-span-2 space-y-4">
+        {/* Right: drop zone fixed, preview grid scrolls independently */}
+        <div className="lg:col-span-2 flex flex-col min-h-0 gap-4">
           {/* Drop zone */}
           <div
             onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
@@ -187,7 +202,7 @@ export default function UploadPanel({ token }: Props) {
               addFiles(e.dataTransfer.files);
             }}
             onClick={() => fileInputRef.current?.click()}
-            className={`border-2 border-dashed rounded transition-all cursor-pointer p-12 text-center ${
+            className={`flex-shrink-0 border-2 border-dashed rounded transition-all cursor-pointer p-8 lg:p-10 text-center ${
               dragOver
                 ? "border-stone-900 bg-stone-100"
                 : "border-stone-200 hover:border-stone-400 bg-white"
@@ -198,7 +213,7 @@ export default function UploadPanel({ token }: Props) {
               Drag & drop photos here, or click to browse
             </p>
             <p className="text-stone-400 text-xs">
-              JPEG, PNG, WebP, HEIC — up to 50MB per file
+              JPEG, PNG, WebP — auto-compressed to 2 MB before upload
             </p>
             <input
               ref={fileInputRef}
@@ -210,9 +225,10 @@ export default function UploadPanel({ token }: Props) {
             />
           </div>
 
-          {/* Preview grid */}
+          {/* Preview grid — only this area scrolls */}
           {items.length > 0 && (
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+            <div className="flex-1 min-h-0 overflow-y-auto pr-1 -mr-1">
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 pb-2">
               {items.map((item, i) => (
                 <div key={i} className="relative aspect-square bg-stone-100 overflow-hidden group">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -250,6 +266,7 @@ export default function UploadPanel({ token }: Props) {
                   )}
                 </div>
               ))}
+              </div>
             </div>
           )}
         </div>

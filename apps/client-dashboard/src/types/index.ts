@@ -37,6 +37,7 @@ export interface Client {
   created_at: string;
   total_photos: number;
   selected_photos: number;
+  liked_photos: number;
   storage_quota_bytes: number | string;
   storage_used_bytes: number | string;
 }

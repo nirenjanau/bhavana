@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback } from "react";
+import { useState, useCallback } from "react";
 import useSWR from "swr";
 import toast from "react-hot-toast";
 import { ChevronRight, Folder as FolderIcon, Home } from "lucide-react";
-import type { TreeResponse } from "@/types";
+import type { TreeResponse, Photo } from "@/types";
 import PhotoCard from "./PhotoCard";
-import { toggleLike, toggleSelect } from "@/lib/api";
+import PhotoLightbox from "./PhotoLightbox";
+import { toggleLike, toggleSelect, getDownloadUrl } from "@/lib/api";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
@@ -21,9 +22,12 @@ interface Props {
   token: string;
   folderId: string | null;
   onNavigate: (folderId: string | null) => void;
+  onStatsChange?: () => void;
 }
 
-export default function FolderBrowser({ token, folderId, onNavigate }: Props) {
+export default function FolderBrowser({ token, folderId, onNavigate, onStatsChange }: Props) {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
   const key = folderId
     ? `${API_URL}/api/gallery/tree?parent_id=${folderId}&limit=120`
     : `${API_URL}/api/gallery/tree?limit=120`;
@@ -38,7 +42,7 @@ export default function FolderBrowser({ token, folderId, onNavigate }: Props) {
     async (photoId: string) => {
       try {
         const r = await toggleLike(photoId, token);
-        await mutate(
+        mutate(
           (prev) =>
             prev
               ? {
@@ -50,18 +54,20 @@ export default function FolderBrowser({ token, folderId, onNavigate }: Props) {
               : prev,
           false
         );
+        toast(r.is_liked ? "❤️ Liked" : "Unliked");
+        onStatsChange?.();
       } catch {
         toast.error("Failed to update");
       }
     },
-    [token, mutate]
+    [token, mutate, onStatsChange]
   );
 
   const handleSelect = useCallback(
     async (photoId: string) => {
       try {
         const r = await toggleSelect(photoId, token);
-        await mutate(
+        mutate(
           (prev) =>
             prev
               ? {
@@ -74,12 +80,29 @@ export default function FolderBrowser({ token, folderId, onNavigate }: Props) {
           false
         );
         toast(r.is_selected ? "✓ Selected for album" : "Deselected");
+        onStatsChange?.();
       } catch {
         toast.error("Failed to update");
       }
     },
-    [token, mutate]
+    [token, mutate, onStatsChange]
   );
+
+  const handleDownload = useCallback(async (photo: Photo) => {
+    try {
+      const { url, filename } = await getDownloadUrl(photo.id, token);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.target = "_blank";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      toast.success("Download started");
+    } catch {
+      toast.error("Download failed");
+    }
+  }, [token]);
 
   const breadcrumb = data?.breadcrumb ?? [];
   const folders = data?.folders ?? [];
@@ -148,13 +171,14 @@ export default function FolderBrowser({ token, folderId, onNavigate }: Props) {
             <h3 className="text-xs tracking-widest uppercase text-stone-400 mb-3">Photos</h3>
           )}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
-            {photos.map((photo) => (
+            {photos.map((photo, i) => (
               <PhotoCard
                 key={photo.id}
                 photo={photo}
                 onLike={handleLike}
                 onSelect={handleSelect}
-                token={token}
+                onZoom={() => setLightboxIndex(i)}
+                onDownload={handleDownload}
               />
             ))}
           </div>
@@ -180,6 +204,17 @@ export default function FolderBrowser({ token, folderId, onNavigate }: Props) {
         )
       )}
 
+      {lightboxIndex !== null && photos.length > 0 && (
+        <PhotoLightbox
+          photos={photos}
+          currentIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onNavigate={setLightboxIndex}
+          onLike={handleLike}
+          onSelect={handleSelect}
+          onDownload={handleDownload}
+        />
+      )}
     </div>
   );
 }

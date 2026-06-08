@@ -12,19 +12,19 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
+        const email = credentials?.email?.trim().toLowerCase();
+        const password = credentials?.password?.trim();
+        if (!email || !password) return null;
 
         try {
           const res = await fetch(`${API_URL}/api/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: credentials.email,
-              password: credentials.password,
-            }),
+            body: JSON.stringify({ email, password }),
           });
 
-          if (!res.ok) return null;
+          if (res.status === 401) return null;
+          if (!res.ok) throw new Error("API_ERROR");
 
           const data = await res.json() as {
             token: string;
@@ -38,8 +38,9 @@ export const authOptions: NextAuthOptions = {
             role: data.user.role,
             accessToken: data.token,
           };
-        } catch {
-          return null;
+        } catch (err) {
+          if (err instanceof Error && err.message === "API_ERROR") throw err;
+          throw new Error("API_UNREACHABLE");
         }
       },
     }),
