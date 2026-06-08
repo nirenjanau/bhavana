@@ -3,6 +3,7 @@ import { redirect, notFound } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import ClientWorkspace from "@/components/admin/ClientWorkspace";
 
+export const dynamic = "force-dynamic";
 export const metadata = { title: "Client Workspace | Bhavana Studio" };
 
 interface Props {

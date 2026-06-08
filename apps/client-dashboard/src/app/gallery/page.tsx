@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import GalleryClient from "@/components/gallery/GalleryClient";
 
+export const dynamic = "force-dynamic";
 export const metadata = { title: "My Gallery | Bhavana Studio" };
 
 export default async function GalleryPage() {
