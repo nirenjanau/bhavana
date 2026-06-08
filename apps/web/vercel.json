@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/login",           "destination": "https://bhavana-client-dashboard.vercel.app/login" },
+    { "source": "/gallery",         "destination": "https://bhavana-client-dashboard.vercel.app/gallery" },
+    { "source": "/gallery/:path*",  "destination": "https://bhavana-client-dashboard.vercel.app/gallery/:path*" },
+    { "source": "/admin",           "destination": "https://bhavana-client-dashboard.vercel.app/admin" },
+    { "source": "/admin/:path*",    "destination": "https://bhavana-client-dashboard.vercel.app/admin/:path*" },
+    { "source": "/api/auth/:path*", "destination": "https://bhavana-client-dashboard.vercel.app/api/auth/:path*" }
+  ]
+}
