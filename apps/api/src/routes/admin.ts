@@ -351,7 +351,10 @@ router.post(
     const adminId = req.user!.userId;
     const clientId = (req.body.client_id as string) || null;
     const albumId = (req.body.album_id as string) || null;
-    const imageProcessingUrl = process.env.IMAGE_PROCESSING_URL ?? "http://image-processing:5000";
+    const rawImageProcessingUrl = process.env.IMAGE_PROCESSING_URL ?? "http://image-processing:5000";
+    const imageProcessingUrl = /^https?:\/\//i.test(rawImageProcessingUrl)
+      ? rawImageProcessingUrl
+      : `https://${rawImageProcessingUrl}`;
 
     if (!clientId) {
       return res.status(400).json({ error: "client_id is required" });
