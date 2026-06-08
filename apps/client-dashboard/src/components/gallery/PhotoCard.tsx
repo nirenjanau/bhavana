@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { Heart, CheckCircle, Download, ZoomIn, Circle } from "lucide-react";
+import { Heart, CheckCircle, Download, ZoomIn, Circle, ImageOff } from "lucide-react";
+import { useState } from "react";
 import type { Photo } from "@/types";
 
 interface Props {
@@ -13,17 +14,27 @@ interface Props {
 }
 
 export default function PhotoCard({ photo, onLike, onSelect, onZoom, onDownload }: Props) {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <div className="group relative bg-stone-100 overflow-hidden aspect-square">
       {/* Thumbnail */}
-      <Image
-        src={photo.thumbnail_url}
-        alt={photo.filename}
-        fill
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
-        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-        loading="lazy"
-      />
+      {imgError ? (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-stone-400">
+          <ImageOff size={24} />
+          <span className="text-xs text-center px-2 truncate max-w-full">{photo.filename}</span>
+        </div>
+      ) : (
+        <Image
+          src={photo.thumbnail_url}
+          alt={photo.filename}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          loading="lazy"
+          onError={() => setImgError(true)}
+        />
+      )}
 
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/40 transition-all duration-300" />
