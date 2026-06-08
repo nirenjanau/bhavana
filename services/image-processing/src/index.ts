@@ -48,12 +48,12 @@ async function uploadToS3(
 app.post("/process", upload.single("image"), async (req, res) => {
   const file = req.file;
   if (!file) {
-    res.status(400).json({ error: "No image provided" });
-    return;
+    return res.status(400).json({ error: "No image provided" });
   }
 
   try {
     const id = uuidv4();
+    const ext = "webp";
     const baseName = file.originalname.replace(/\.[^.]+$/, "").replace(/[^a-z0-9-_]/gi, "_");
 
     const originalKey = `photos/${id}/original_${baseName}.webp`;
@@ -90,7 +90,7 @@ app.post("/process", upload.single("image"), async (req, res) => {
       uploadToS3(thumbnailKey, thumbnailBuffer, "image/webp"),
     ]);
 
-    res.json({
+    return res.json({
       originalKey,
       previewKey,
       thumbnailKey,
@@ -100,7 +100,7 @@ app.post("/process", upload.single("image"), async (req, res) => {
     });
   } catch (err) {
     console.error("Image processing error:", err);
-    res.status(500).json({ error: "Image processing failed" });
+    return res.status(500).json({ error: "Image processing failed" });
   }
 });
 
@@ -108,10 +108,7 @@ app.post("/process", upload.single("image"), async (req, res) => {
 app.use(express.json());
 app.post("/process-url", async (req, res) => {
   const { url, filename } = req.body as { url: string; filename: string };
-  if (!url) {
-    res.status(400).json({ error: "url required" });
-    return;
-  }
+  if (!url) return res.status(400).json({ error: "url required" });
 
   try {
     const response = await fetch(url);
@@ -140,7 +137,7 @@ app.post("/process-url", async (req, res) => {
       uploadToS3(thumbnailKey, thumbnailBuffer, "image/webp"),
     ]);
 
-    res.json({
+    return res.json({
       originalKey,
       previewKey,
       thumbnailKey,
@@ -150,7 +147,7 @@ app.post("/process-url", async (req, res) => {
     });
   } catch (err) {
     console.error("Error:", err);
-    res.status(500).json({ error: "Processing failed" });
+    return res.status(500).json({ error: "Processing failed" });
   }
 });
 
