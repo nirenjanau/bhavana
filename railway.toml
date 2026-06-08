@@ -1,5 +1,0 @@
-[build]
-buildCommand = "npm install && npm run build --workspace=apps/web"
-
-[deploy]
-startCommand = "npm run start --workspace=apps/web"
