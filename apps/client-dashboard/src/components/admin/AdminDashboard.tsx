@@ -6,7 +6,6 @@ import { signOut } from "next-auth/react";
 import ClientsPanel from "./ClientsPanel";
 import UploadPanel from "./UploadPanel";
 import SelectionsPanel from "./SelectionsPanel";
-import BackToHomeLink from "@/components/BackToHomeLink";
 
 type AdminTab = "overview" | "clients" | "upload" | "selections";
 
@@ -29,7 +28,6 @@ export default function AdminDashboard({ token }: Props) {
       {/* Mobile top bar */}
       <header className="md:hidden bg-stone-900 text-white px-4 py-3 flex items-center justify-between">
         <div>
-          <BackToHomeLink className="text-stone-400 hover:text-white mb-2" />
           <p className="font-serif text-sm tracking-widest uppercase">Bhavana Studio</p>
           <p className="text-stone-400 text-xs">Admin Panel</p>
         </div>
@@ -62,7 +60,6 @@ export default function AdminDashboard({ token }: Props) {
       {/* Sidebar */}
       <aside className="hidden md:flex w-64 bg-stone-900 text-white flex-col flex-shrink-0">
         <div className="p-6 border-b border-stone-800">
-          <BackToHomeLink className="text-stone-400 hover:text-white mb-4" />
           <h1 className="font-serif text-lg font-light tracking-widest uppercase">
             Bhavana Studio
           </h1>

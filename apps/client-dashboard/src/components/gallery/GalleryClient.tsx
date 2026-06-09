@@ -9,7 +9,6 @@ import type { Filter, GalleryResponse, GalleryStats, Photo } from "@/types";
 import PhotoCard from "./PhotoCard";
 import PhotoLightbox from "./PhotoLightbox";
 import FolderBrowser from "./FolderBrowser";
-import BackToHomeLink from "@/components/BackToHomeLink";
 import { toggleLike, toggleSelect, bulkDownload, getDownloadUrl } from "@/lib/api";
 
 type View = "folders" | Filter;
@@ -158,8 +157,6 @@ export default function GalleryClient({ userName, token }: Props) {
       <header className="sticky top-0 z-40 bg-stone-50/95 backdrop-blur border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <BackToHomeLink className="hidden sm:inline-flex" />
-            <span className="hidden sm:block text-stone-300">|</span>
             <h1 className="font-serif text-xl font-light text-stone-900 tracking-widest uppercase">
               Bhavana Studio
             </h1>
@@ -193,10 +190,6 @@ export default function GalleryClient({ userName, token }: Props) {
           </div>
         </div>
       </header>
-
-      <div className="sm:hidden px-4 pt-3">
-        <BackToHomeLink />
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats bar */}
