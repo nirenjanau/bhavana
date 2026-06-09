@@ -145,7 +145,7 @@ export default function LoginPage() {
           <p className="mt-8 text-stone-400 text-xs text-center">
             Having trouble?{" "}
             <a
-              href="mailto:hello@bhavanastudio.com"
+              href="mailto:bhavanastudio@gmail.com"
               className="text-stone-600 hover:text-stone-900 underline"
             >
               Contact us
