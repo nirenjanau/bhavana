@@ -18,9 +18,9 @@ export const metadata: Metadata = {
     description,
     images: [
       {
-        url: "/10-1.jpg.jpeg",
-        width: 1200,
-        height: 800,
+        url: "/bhavana-logo.png",
+        width: 1024,
+        height: 576,
         alt: "Bhavana Studio",
       },
     ],
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: ["/10-1.jpg.jpeg"],
+    images: ["/bhavana-logo.png"],
   },
 };
 

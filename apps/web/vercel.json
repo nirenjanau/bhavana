@@ -6,6 +6,7 @@
     { "source": "/gallery/:path*",   "destination": "https://bhavana-client-dashboard.vercel.app/gallery/:path*" },
     { "source": "/admin",            "destination": "https://bhavana-client-dashboard.vercel.app/admin" },
     { "source": "/admin/:path*",     "destination": "https://bhavana-client-dashboard.vercel.app/admin/:path*" },
-    { "source": "/10-1.jpg.jpeg",    "destination": "https://bhavana-client-dashboard.vercel.app/10-1.jpg.jpeg" }
+    { "source": "/10-1.jpg.jpeg",    "destination": "https://bhavana-client-dashboard.vercel.app/10-1.jpg.jpeg" },
+    { "source": "/bhavana-logo.png", "destination": "https://bhavana-client-dashboard.vercel.app/bhavana-logo.png" }
   ]
 }
