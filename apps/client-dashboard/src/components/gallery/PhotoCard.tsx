@@ -36,8 +36,8 @@ export default function PhotoCard({ photo, onLike, onSelect, onZoom, onDownload 
         />
       )}
 
-      {/* Hover overlay */}
-      <div className="absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/40 transition-all duration-300" />
+      {/* Hover overlay — desktop only */}
+      <div className="absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/40 transition-all duration-300 hidden sm:block" />
 
       {/* Status badges */}
       <div className="absolute top-2 left-2 flex gap-1.5">
@@ -53,8 +53,8 @@ export default function PhotoCard({ photo, onLike, onSelect, onZoom, onDownload 
         )}
       </div>
 
-      {/* Action buttons — shown on hover */}
-      <div className="absolute bottom-0 left-0 right-0 p-2 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+      {/* Action buttons — always visible on mobile, hover-only on desktop */}
+      <div className="absolute bottom-0 left-0 right-0 p-2 flex items-center justify-between sm:opacity-0 sm:group-hover:opacity-100 sm:transition-opacity sm:duration-200">
         <div className="flex gap-1.5">
           {/* Like */}
           <button

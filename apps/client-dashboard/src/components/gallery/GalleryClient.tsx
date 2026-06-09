@@ -141,11 +141,11 @@ export default function GalleryClient({ userName, token }: Props) {
     }
   }, [token]);
 
-  const tabs: { value: View; label: string; count?: number; icon?: React.ReactNode }[] = [
-    { value: "folders", label: "Folders", icon: <FolderTree size={13} /> },
-    { value: "all", label: "All Photos", count: stats?.total },
-    { value: "liked", label: "Liked", count: stats?.liked },
-    { value: "selected", label: "Selected", count: stats?.selected },
+  const tabs: { value: View; label: string; shortLabel: string; count?: number; icon?: React.ReactNode }[] = [
+    { value: "folders", label: "Folders", shortLabel: "Folders", icon: <FolderTree size={13} /> },
+    { value: "all", label: "All Photos", shortLabel: "All", count: stats?.total },
+    { value: "liked", label: "Liked", shortLabel: "Liked", count: stats?.liked },
+    { value: "selected", label: "Selected", shortLabel: "Selected", count: stats?.selected },
   ];
 
   const photos = gallery?.photos ?? [];
@@ -212,7 +212,7 @@ export default function GalleryClient({ userName, token }: Props) {
 
         {/* Tabs + grid toggle */}
         <div className="flex items-center justify-between mb-6 border-b border-stone-200">
-          <div className="flex gap-1">
+          <div className="flex gap-1 overflow-x-auto">
             {tabs.map((tab) => (
               <button
                 key={tab.value}
@@ -220,14 +220,15 @@ export default function GalleryClient({ userName, token }: Props) {
                   setView(tab.value);
                   setPage(1);
                 }}
-                className={`flex items-center gap-2 px-4 py-3 text-xs tracking-widest uppercase transition-colors border-b-2 -mb-px ${
+                className={`flex items-center gap-1.5 px-3 py-3 text-xs tracking-widest uppercase transition-colors border-b-2 -mb-px whitespace-nowrap ${
                   view === tab.value
                     ? "border-stone-900 text-stone-900"
                     : "border-transparent text-stone-400 hover:text-stone-600"
                 }`}
               >
                 {tab.icon}
-                {tab.label}
+                <span className="sm:hidden">{tab.shortLabel}</span>
+                <span className="hidden sm:inline">{tab.label}</span>
                 {tab.count !== undefined && (
                   <span
                     className={`text-xs px-1.5 py-0.5 rounded ${
